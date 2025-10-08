@@ -674,6 +674,30 @@
       overflow: visible;
     }
 
+    .questions-content {
+      max-height: 60vh;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .questions-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .questions-content::-webkit-scrollbar-track {
+      background: rgba(0, 168, 107, 0.1);
+      border-radius: 4px;
+    }
+
+    .questions-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 168, 107, 0.3);
+      border-radius: 4px;
+    }
+
+    .questions-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 168, 107, 0.5);
+    }
+
     .leaderboard-table {
       width: 100%;
       border-collapse: collapse;
@@ -1007,6 +1031,11 @@
         gap: 0.75rem;
       }
 
+      .questions-content {
+        max-height: 50vh;
+        padding: 0.75rem;
+      }
+
       .btn {
         padding: 0.75rem 1.25rem;
         min-width: 140px;
@@ -1150,6 +1179,11 @@
         width: 80px;
         height: 80px;
         padding: 8px;
+      }
+
+      .questions-content {
+        max-height: 40vh;
+        padding: 0.5rem;
       }
     }
 
@@ -1398,7 +1432,7 @@
                   Contenu du Questionnaire
                 </h3>
               </div>
-              <div id="questions-list" class="loading">
+              <div id="questions-list" class="questions-content loading">
                 <div class="spinner"></div>
                 Chargement des questions...
               </div>
