@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -61,7 +61,7 @@
 
     html, body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #ffffff !important;
+      background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e8f5e8 100%) !important;
       color: var(--gray-800);
       line-height: 1.6;
       height: 100vh;
@@ -76,19 +76,20 @@
     }
 
     .dashboard-header, .auth-container, .dashboard-container, .stat-card, .table-container, .question-card, .auth-card {
-      background: #ffffff !important;
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
     }
 
     /* Header */
     .dashboard-header {
-      background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
-      border-bottom: 1px solid var(--gray-200);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 255, 248, 0.95) 100%);
+      border-bottom: 1px solid rgba(0, 168, 107, 0.2);
       padding: 1.5rem 0;
       position: sticky;
       top: 0;
       z-index: 100;
       backdrop-filter: blur(20px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 168, 107, 0.1);
     }
 
     .header-container {
@@ -122,7 +123,7 @@
     .brand-info h1 {
       font-size: 1.75rem;
       font-weight: 800;
-      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-turquoise));
+      background: linear-gradient(135deg, var(--accent-green), #00a86b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -149,12 +150,12 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.25rem;
-      background: linear-gradient(135deg, var(--light-blue), rgba(0, 163, 224, 0.1));
-      color: var(--primary-blue);
+      background: linear-gradient(135deg, rgba(0, 168, 107, 0.1), rgba(0, 168, 107, 0.05));
+      color: var(--accent-green);
       border-radius: 9999px;
       font-size: 0.875rem;
       font-weight: 600;
-      border: 1px solid var(--secondary-turquoise);
+      border: 1px solid rgba(0, 168, 107, 0.3);
       box-shadow: var(--shadow-sm);
       transition: var(--transition);
     }
@@ -417,11 +418,11 @@
     }
 
     .stat-card {
-      background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%) !important;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 255, 248, 0.9) 100%) !important;
       padding: 2.5rem;
       border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-md);
-      border: 1px solid var(--gray-200);
+      box-shadow: 0 8px 32px rgba(0, 168, 107, 0.1);
+      border: 1px solid rgba(0, 168, 107, 0.2);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
@@ -434,7 +435,7 @@
       left: 0;
       right: 0;
       height: 6px;
-      background: linear-gradient(90deg, var(--primary-blue), var(--secondary-turquoise));
+      background: linear-gradient(90deg, var(--accent-green), #00a86b);
       border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     }
 
@@ -445,7 +446,7 @@
       right: -50%;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(0, 102, 204, 0.05) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0, 168, 107, 0.05) 0%, transparent 70%);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -485,7 +486,7 @@
     }
 
     .stat-icon.users { 
-      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-turquoise));
+      background: linear-gradient(135deg, var(--accent-green), #00a86b);
     }
     .stat-icon.score { 
       background: linear-gradient(135deg, var(--success), var(--accent-green));
@@ -509,7 +510,7 @@
     .stat-value {
       font-size: 3rem;
       font-weight: 900;
-      background: linear-gradient(135deg, var(--gray-800), var(--primary-blue));
+      background: linear-gradient(135deg, var(--gray-800), var(--accent-green));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -530,10 +531,10 @@
     }
 
     .table-container {
-      background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%) !important;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 255, 248, 0.9) 100%) !important;
       border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--gray-200);
+      box-shadow: 0 8px 32px rgba(0, 168, 107, 0.1);
+      border: 1px solid rgba(0, 168, 107, 0.2);
       overflow: hidden;
       transition: var(--transition);
     }
@@ -544,8 +545,8 @@
 
     .table-header {
       padding: 2rem;
-      border-bottom: 1px solid var(--gray-200);
-      background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+      border-bottom: 1px solid rgba(0, 168, 107, 0.2);
+      background: linear-gradient(135deg, rgba(248, 255, 248, 0.8) 0%, rgba(255, 255, 255, 0.9) 100%);
       position: relative;
     }
 
@@ -556,7 +557,7 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, var(--primary-blue), var(--secondary-turquoise));
+      background: linear-gradient(90deg, var(--accent-green), #00a86b);
     }
 
     .table-title {
@@ -575,6 +576,8 @@
 
     .table-content {
       overflow-x: auto;
+      max-height: 60vh;
+      overflow-y: auto;
     }
 
     .leaderboard-table {
