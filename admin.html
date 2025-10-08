@@ -98,46 +98,9 @@
       padding: 0 2rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .logo {
-      width: 56px;
-      height: 56px;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-md);
-      transition: var(--transition);
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .brand-info h1 {
-      font-size: 1.75rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent-green), #00a86b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.25rem;
-      letter-spacing: -0.025em;
-    }
-
-    .brand-info p {
-      font-size: 0.875rem;
-      color: var(--gray-600);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
 
     .header-actions {
       display: flex;
@@ -1226,10 +1189,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
 
     @keyframes slideInRight {
       from { opacity: 0; transform: translateX(30px); }
@@ -1250,9 +1209,6 @@
       animation: fadeIn 0.6s ease-out;
     }
 
-    .slide-in-left {
-      animation: slideInLeft 0.6s ease-out;
-    }
 
     .slide-in-right {
       animation: slideInRight 0.6s ease-out;
@@ -1296,13 +1252,6 @@
   <!-- Header -->
   <header class="dashboard-header">
     <div class="header-container">
-      <div class="brand slide-in-left">
-        <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="logo">
-        <div class="brand-info">
-          <h1>Centre Diagnostic</h1>
-          <p>Tableau de Bord Administrateur</p>
-        </div>
-      </div>
       <div class="header-actions slide-in-right" id="header-actions" style="display: none;">
         <span class="status-badge pulse">
           <i class="fas fa-circle"></i>
