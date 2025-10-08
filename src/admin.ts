@@ -23,7 +23,7 @@ const avgTime = document.getElementById('avg-time') as HTMLDivElement;
 const bestScore = document.getElementById('best-score') as HTMLDivElement;
 
 // Tables
-const leaderboardTable = document.getElementById('leaderboard-table') as HTMLTableSectionElement;
+const leaderboardTable = document.getElementById('leaderboard-body') as HTMLTableSectionElement;
 const questionsList = document.getElementById('questions-list') as HTMLDivElement;
 
 // Vérifier si l'admin est déjà connecté
