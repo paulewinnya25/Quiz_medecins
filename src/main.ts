@@ -1,5 +1,4 @@
 import './style.css';
-import QRCode from 'qrcodejs';
 import { questions } from './questions';
 import { PlayerResult, LeaderboardEntry } from './types';
 import { saveScore, getLeaderboard } from './supabase';
@@ -34,14 +33,29 @@ function initializeQRCode(): void {
   const qrCodeElement = document.getElementById('qrcode');
   
   if (qrCodeElement) {
-    new QRCode(qrCodeElement, {
-      text: currentUrl,
-      width: 200,
-      height: 200,
-      colorDark: '#764ba2',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
+    // Vider le conteneur
+    qrCodeElement.innerHTML = '';
+    
+    // Vérifier si QRCode est disponible
+    if (typeof (window as any).QRCode !== 'undefined') {
+      new (window as any).QRCode(qrCodeElement, {
+        text: currentUrl,
+        width: 200,
+        height: 200,
+        colorDark: '#764ba2',
+        colorLight: '#ffffff',
+        correctLevel: (window as any).QRCode.CorrectLevel.H
+      });
+    } else {
+      // Fallback : afficher un lien direct
+      qrCodeElement.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <p style="color: #666; margin-bottom: 15px;">QR Code en cours de chargement...</p>
+          <p style="color: #333; font-weight: bold;">Lien direct :</p>
+          <p style="color: #667eea; word-break: break-all; font-size: 14px;">${currentUrl}</p>
+        </div>
+      `;
+    }
   }
 }
 
@@ -260,5 +274,17 @@ playerNameInput?.addEventListener('keypress', (e) => {
 });
 
 // Initialiser le QR Code au chargement
-window.addEventListener('load', initializeQRCode);
+window.addEventListener('load', () => {
+  // Attendre un peu pour que QRCode.js soit complètement chargé
+  setTimeout(initializeQRCode, 100);
+});
+
+// Initialiser aussi quand le DOM est prêt
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initializeQRCode, 100);
+  });
+} else {
+  setTimeout(initializeQRCode, 100);
+}
 
