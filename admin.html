@@ -342,70 +342,14 @@
       overflow-y: auto;
     }
 
-    /* Section Centre Diagnostic */
-    .brand-section {
-      background: linear-gradient(135deg, rgba(248, 255, 248, 0.8) 0%, rgba(255, 255, 255, 0.9) 100%);
-      border-radius: var(--radius-xl);
-      box-shadow: 0 8px 32px rgba(0, 168, 107, 0.1);
-      border: 1px solid rgba(0, 168, 107, 0.15);
-      margin-bottom: 3rem;
-      padding: 2rem;
-      backdrop-filter: blur(10px);
-    }
-
-    .brand-content {
+    /* Section Actions */
+    .actions-section {
+      margin-bottom: 2rem;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
+      justify-content: center;
     }
 
-    .brand-logo-section {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .brand-logo {
-      width: 64px;
-      height: 64px;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-md);
-      transition: var(--transition);
-    }
-
-    .brand-logo:hover {
-      transform: scale(1.05);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .brand-title {
-      font-size: 2rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent-green), #00a86b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin: 0;
-      letter-spacing: -0.025em;
-    }
-
-    .brand-subtitle {
-      font-size: 1rem;
-      color: var(--gray-600);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin: 0;
-    }
-
-    .brand-actions {
+    .actions-content {
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -1008,26 +952,9 @@
         gap: 1rem;
       }
 
-      .brand-content {
+      .actions-content {
         flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
-      }
-
-      .brand-logo-section {
-        justify-content: center;
-      }
-
-      .brand-title {
-        font-size: 1.75rem;
-      }
-
-      .brand-subtitle {
-        font-size: 0.875rem;
-      }
-
-      .brand-actions {
-        justify-content: center;
+        gap: 0.75rem;
       }
 
       .btn {
@@ -1164,23 +1091,6 @@
         font-size: 0.8rem;
       }
 
-      .brand-section {
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-      }
-
-      .brand-logo {
-        width: 48px;
-        height: 48px;
-      }
-
-      .brand-title {
-        font-size: 1.5rem;
-      }
-
-      .brand-subtitle {
-        font-size: 0.75rem;
-      }
     }
 
     /* Animations */
@@ -1291,26 +1201,17 @@
   <!-- Dashboard -->
   <div id="dashboard" class="dashboard">
     <div class="dashboard-container">
-      <!-- Section Centre Diagnostic -->
-      <section class="brand-section">
-        <div class="brand-content">
-          <div class="brand-logo-section">
-            <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="brand-logo">
-            <div class="brand-text">
-              <h1 class="brand-title">Centre Diagnostic</h1>
-              <p class="brand-subtitle">Tableau de Bord Administrateur</p>
-            </div>
-          </div>
-          <div class="brand-actions">
-            <button class="btn btn-warning" id="refresh-btn">
-              <i class="fas fa-sync-alt"></i>
-              Actualiser les données
-            </button>
-            <button class="btn btn-danger" id="logout-btn">
-              <i class="fas fa-sign-out-alt"></i>
-              Déconnexion
-            </button>
-          </div>
+      <!-- Actions Section -->
+      <section class="actions-section">
+        <div class="actions-content">
+          <button class="btn btn-warning" id="refresh-btn">
+            <i class="fas fa-sync-alt"></i>
+            Actualiser les données
+          </button>
+          <button class="btn btn-danger" id="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            Déconnexion
+          </button>
         </div>
       </section>
 
