@@ -29,7 +29,10 @@ const leaderboardList = document.getElementById('leaderboard-list') as HTMLDivEl
 
 // Génération du QR Code
 function initializeQRCode(): void {
-  const currentUrl = window.location.href;
+  // Ajouter un paramètre pour démarrage automatique
+  const baseUrl = window.location.origin + window.location.pathname;
+  const qrUrl = `${baseUrl}?autostart=1`;
+  
   const qrCodeElement = document.getElementById('qrcode');
   
   if (qrCodeElement) {
@@ -39,7 +42,7 @@ function initializeQRCode(): void {
     // Vérifier si QRCode est disponible
     if (typeof (window as any).QRCode !== 'undefined') {
       new (window as any).QRCode(qrCodeElement, {
-        text: currentUrl,
+        text: qrUrl,
         width: 200,
         height: 200,
         colorDark: '#0066cc',  // Bleu médical du Centre Diagnostic
@@ -52,10 +55,19 @@ function initializeQRCode(): void {
         <div style="text-align: center; padding: 20px;">
           <p style="color: #666; margin-bottom: 15px;">QR Code en cours de chargement...</p>
           <p style="color: #333; font-weight: bold;">Lien direct :</p>
-          <p style="color: #667eea; word-break: break-all; font-size: 14px;">${currentUrl}</p>
+          <p style="color: #0066cc; word-break: break-all; font-size: 14px;">${qrUrl}</p>
         </div>
       `;
     }
+  }
+}
+
+// Vérifier si on vient d'un scan QR code
+function checkAutoStart(): void {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('autostart') === '1') {
+    // Démarrer automatiquement le quiz
+    startQuiz();
   }
 }
 
@@ -284,6 +296,8 @@ playerNameInput?.addEventListener('keypress', (e) => {
 
 // Initialiser le QR Code au chargement
 window.addEventListener('load', () => {
+  // Vérifier d'abord si on vient d'un scan QR
+  checkAutoStart();
   // Attendre un peu pour que QRCode.js soit complètement chargé
   setTimeout(initializeQRCode, 100);
 });
@@ -291,9 +305,11 @@ window.addEventListener('load', () => {
 // Initialiser aussi quand le DOM est prêt
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    checkAutoStart();
     setTimeout(initializeQRCode, 100);
   });
 } else {
+  checkAutoStart();
   setTimeout(initializeQRCode, 100);
 }
 
