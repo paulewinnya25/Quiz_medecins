@@ -42,7 +42,7 @@ function initializeQRCode(): void {
         text: currentUrl,
         width: 200,
         height: 200,
-        colorDark: '#764ba2',
+        colorDark: '#0066cc',  // Bleu médical du Centre Diagnostic
         colorLight: '#ffffff',
         correctLevel: (window as any).QRCode.CorrectLevel.H
       });

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Interactif avec QR Code</title>
+  <title>Quiz Interactif - Centre Diagnostic</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
@@ -11,7 +11,10 @@
     <div class="container">
       <!-- Section QR Code -->
       <div id="qr-section">
-        <h1>📱 Quiz Interactif</h1>
+        <div class="logo-container">
+          <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="logo">
+        </div>
+        <h1>📱 Quiz Interactif - Centre Diagnostic</h1>
         <p class="info-text">Scannez ce QR code ou cliquez sur le bouton pour commencer le quiz</p>
         <div id="qrcode"></div>
         <button class="btn" id="start-btn">Commencer le Quiz</button>
@@ -19,7 +22,10 @@
 
       <!-- Section Nom du Joueur -->
       <div id="name-section" class="quiz-section">
-        <h1>👋 Bienvenue au Quiz!</h1>
+        <div class="logo-container">
+          <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="logo">
+        </div>
+        <h1>👋 Bienvenue au Quiz Centre Diagnostic!</h1>
         <p class="info-text">Entrez votre nom pour commencer</p>
         <input type="text" class="name-input" id="player-name" placeholder="Votre nom..." maxlength="30">
         <button class="btn" id="submit-name-btn">Démarrer le Quiz</button>
@@ -27,7 +33,10 @@
 
       <!-- Section Quiz -->
       <div id="quiz-section" class="quiz-section">
-        <h2>Quiz en cours</h2>
+        <div class="logo-container">
+          <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="logo">
+        </div>
+        <h2>Quiz Centre Diagnostic en cours</h2>
         <div class="timer" id="timer">Temps: 00:00</div>
         <div class="progress-bar">
           <div class="progress-fill" id="progress"></div>
@@ -38,8 +47,11 @@
 
       <!-- Section Résultats -->
       <div id="results-section" class="quiz-section">
+        <div class="logo-container">
+          <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="logo">
+        </div>
         <div class="score-section">
-          <h2>🎉 Quiz Terminé!</h2>
+          <h2>🎉 Quiz Centre Diagnostic Terminé!</h2>
           <div id="player-result"></div>
           <div class="score" id="score-display">0/0</div>
           <p id="message"></p>
