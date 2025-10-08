@@ -2,6 +2,13 @@
   command = "npm run build"
   publish = "dist"
 
+# Pas de redirection pour admin.html
+[[redirects]]
+  from = "/admin.html"
+  to = "/admin.html"
+  status = 200
+
+# Redirection pour toutes les autres routes vers index.html (pour SPA)
 [[redirects]]
   from = "/*"
   to = "/index.html"
