@@ -165,6 +165,7 @@ function displayLeaderboard(data: LeaderboardEntry[]): void {
     if (index === 0) rankBadgeClass += ' gold';
     else if (index === 1) rankBadgeClass += ' silver';
     else if (index === 2) rankBadgeClass += ' bronze';
+    else rankBadgeClass += ' default';
     
     const date = new Date(player.date);
     const dateStr = date.toLocaleDateString('fr-FR', { 
