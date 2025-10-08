@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Interactif avec QR Code</title>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <!-- Section QR Code -->
+      <div id="qr-section">
+        <h1>📱 Quiz Interactif</h1>
+        <p class="info-text">Scannez ce QR code ou cliquez sur le bouton pour commencer le quiz</p>
+        <div id="qrcode"></div>
+        <button class="btn" id="start-btn">Commencer le Quiz</button>
+      </div>
+
+      <!-- Section Nom du Joueur -->
+      <div id="name-section" class="quiz-section">
+        <h1>👋 Bienvenue au Quiz!</h1>
+        <p class="info-text">Entrez votre nom pour commencer</p>
+        <input type="text" class="name-input" id="player-name" placeholder="Votre nom..." maxlength="30">
+        <button class="btn" id="submit-name-btn">Démarrer le Quiz</button>
+      </div>
+
+      <!-- Section Quiz -->
+      <div id="quiz-section" class="quiz-section">
+        <h2>Quiz en cours</h2>
+        <div class="timer" id="timer">Temps: 00:00</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress"></div>
+        </div>
+        <div id="question-container"></div>
+        <button class="btn" id="next-btn" style="display: none;">Question Suivante</button>
+      </div>
+
+      <!-- Section Résultats -->
+      <div id="results-section" class="quiz-section">
+        <div class="score-section">
+          <h2>🎉 Quiz Terminé!</h2>
+          <div id="player-result"></div>
+          <div class="score" id="score-display">0/0</div>
+          <p id="message"></p>
+        </div>
+        <div class="leaderboard">
+          <h3>🏆 Classement</h3>
+          <div id="leaderboard-list"></div>
+        </div>
+        <button class="btn" id="restart-btn">Rejouer</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+
