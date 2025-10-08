@@ -81,13 +81,14 @@
 
     /* Header */
     .dashboard-header {
-      background: var(--white);
+      background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
       border-bottom: 1px solid var(--gray-200);
-      padding: 1rem 0;
+      padding: 1.5rem 0;
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
     .header-container {
@@ -106,22 +107,35 @@
     }
 
     .logo {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius);
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-lg);
     }
 
     .brand-info h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-blue);
-      margin-bottom: 0.125rem;
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-turquoise));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.025em;
     }
 
     .brand-info p {
       font-size: 0.875rem;
-      color: var(--gray-500);
-      font-weight: 500;
+      color: var(--gray-600);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .header-actions {
@@ -134,13 +148,20 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: var(--light-blue);
+      padding: 0.75rem 1.25rem;
+      background: linear-gradient(135deg, var(--light-blue), rgba(0, 163, 224, 0.1));
       color: var(--primary-blue);
       border-radius: 9999px;
       font-size: 0.875rem;
-      font-weight: 500;
+      font-weight: 600;
       border: 1px solid var(--secondary-turquoise);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .status-badge:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
     }
 
     .status-badge i {
@@ -227,27 +248,54 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      padding: 0.875rem 1.5rem;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
       border: none;
-      border-radius: var(--radius);
+      border-radius: var(--radius-lg);
       font-size: 0.875rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: var(--transition);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none;
+      width: auto;
+      min-width: 160px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
       width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn:active {
+      transform: translateY(0);
     }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--primary-blue), var(--secondary-turquoise));
       color: white;
+      box-shadow: var(--shadow-md);
     }
 
     .btn-primary:hover {
       background: linear-gradient(135deg, var(--hover-blue), var(--primary-blue));
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-xl);
     }
 
     .btn-secondary {
@@ -271,21 +319,25 @@
     }
 
     .btn-danger {
-      background: var(--error);
+      background: linear-gradient(135deg, var(--error), #ef4444);
       color: white;
+      box-shadow: var(--shadow-md);
     }
 
     .btn-danger:hover {
-      background: #b91c1c;
+      background: linear-gradient(135deg, #b91c1c, var(--error));
+      box-shadow: var(--shadow-xl);
     }
 
     .btn-warning {
-      background: var(--warning);
+      background: linear-gradient(135deg, var(--warning), #fbbf24);
       color: white;
+      box-shadow: var(--shadow-md);
     }
 
     .btn-warning:hover {
-      background: #d97706;
+      background: linear-gradient(135deg, #d97706, var(--warning));
+      box-shadow: var(--shadow-xl);
     }
 
     .error-message {
@@ -365,12 +417,12 @@
     }
 
     .stat-card {
-      background: #ffffff !important;
-      padding: 2rem;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%) !important;
+      padding: 2.5rem;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
       border: 1px solid var(--gray-200);
-      transition: var(--transition);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
     }
@@ -381,13 +433,30 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
+      height: 6px;
       background: linear-gradient(90deg, var(--primary-blue), var(--secondary-turquoise));
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0, 102, 204, 0.05) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .stat-card:hover::after {
+      opacity: 1;
     }
 
     .stat-header {
@@ -398,21 +467,35 @@
     }
 
     .stat-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: var(--radius-lg);
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-xl);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       color: white;
       flex-shrink: 0;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
     }
 
-    .stat-icon.users { background: linear-gradient(135deg, var(--primary-blue), var(--secondary-turquoise)); }
-    .stat-icon.score { background: linear-gradient(135deg, var(--success), var(--accent-green)); }
-    .stat-icon.time { background: linear-gradient(135deg, var(--warning), #fbbf24); }
-    .stat-icon.trophy { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+    .stat-icon:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .stat-icon.users { 
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-turquoise));
+    }
+    .stat-icon.score { 
+      background: linear-gradient(135deg, var(--success), var(--accent-green));
+    }
+    .stat-icon.time { 
+      background: linear-gradient(135deg, var(--warning), #fbbf24);
+    }
+    .stat-icon.trophy { 
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    }
 
     .stat-content h3 {
       font-size: 0.875rem;
@@ -424,11 +507,15 @@
     }
 
     .stat-value {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--gray-800);
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gray-800), var(--primary-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       line-height: 1;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.025em;
     }
 
     .stat-description {
@@ -443,17 +530,33 @@
     }
 
     .table-container {
-      background: #ffffff !important;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%) !important;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
       border: 1px solid var(--gray-200);
       overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .table-container:hover {
+      box-shadow: var(--shadow-xl);
     }
 
     .table-header {
-      padding: 1.5rem 2rem;
+      padding: 2rem;
       border-bottom: 1px solid var(--gray-200);
-      background: var(--gray-50);
+      background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+      position: relative;
+    }
+
+    .table-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-blue), var(--secondary-turquoise));
     }
 
     .table-title {
@@ -497,8 +600,14 @@
       transition: var(--transition);
     }
 
+    .leaderboard-table tbody tr {
+      transition: all 0.2s ease;
+    }
+
     .leaderboard-table tbody tr:hover {
-      background: var(--light-blue);
+      background: linear-gradient(135deg, var(--light-blue), rgba(0, 163, 224, 0.05));
+      transform: scale(1.01);
+      box-shadow: var(--shadow-sm);
     }
 
     .leaderboard-table tbody tr:last-child td {
@@ -515,18 +624,36 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      font-weight: 700;
+      font-weight: 800;
       color: white;
       font-size: 0.875rem;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
     }
 
-    .rank-badge.gold { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
-    .rank-badge.silver { background: linear-gradient(135deg, #9ca3af, #6b7280); }
-    .rank-badge.bronze { background: linear-gradient(135deg, #cd7f32, #92400e); }
-    .rank-badge.default { background: linear-gradient(135deg, var(--gray-400), var(--gray-500)); }
+    .rank-badge:hover {
+      transform: scale(1.1);
+    }
+
+    .rank-badge.gold { 
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+    }
+    .rank-badge.silver { 
+      background: linear-gradient(135deg, #9ca3af, #6b7280);
+      box-shadow: 0 4px 15px rgba(156, 163, 175, 0.4);
+    }
+    .rank-badge.bronze { 
+      background: linear-gradient(135deg, #cd7f32, #92400e);
+      box-shadow: 0 4px 15px rgba(205, 127, 50, 0.4);
+    }
+    .rank-badge.default { 
+      background: linear-gradient(135deg, var(--gray-400), var(--gray-500));
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.4);
+    }
 
     .player-name {
       font-weight: 600;
@@ -695,6 +822,20 @@
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+        padding: 0 1rem;
+      }
+
+      .brand-info h1 {
+        font-size: 1.5rem;
+      }
+
+      .brand-info p {
+        font-size: 0.75rem;
+      }
+
+      .logo {
+        width: 48px;
+        height: 48px;
       }
 
       .dashboard-container {
@@ -705,10 +846,31 @@
 
       .auth-container {
         height: calc(100vh - 80px);
+        padding: 1rem;
+      }
+
+      .auth-card {
+        padding: 2rem;
+        margin: 1rem;
       }
 
       .stats-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .stat-card {
+        padding: 1.5rem;
+      }
+
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+      }
+
+      .stat-value {
+        font-size: 2rem;
       }
 
       .leaderboard-table {
@@ -717,11 +879,73 @@
 
       .leaderboard-table th,
       .leaderboard-table td {
-        padding: 1rem;
+        padding: 0.75rem;
       }
 
       .page-title {
         font-size: 1.5rem;
+      }
+
+      .btn {
+        padding: 0.875rem 1.5rem;
+        min-width: 140px;
+        font-size: 0.8rem;
+      }
+
+      .table-header {
+        padding: 1.5rem;
+      }
+
+      .rank-badge {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dashboard-header {
+        padding: 1rem 0;
+      }
+
+      .brand-info h1 {
+        font-size: 1.25rem;
+      }
+
+      .stat-card {
+        padding: 1rem;
+      }
+
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      .stat-value {
+        font-size: 1.75rem;
+      }
+
+      .btn {
+        padding: 0.75rem 1.25rem;
+        min-width: 120px;
+        font-size: 0.75rem;
+      }
+
+      .table-header {
+        padding: 1rem;
+      }
+
+      .leaderboard-table th,
+      .leaderboard-table td {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .rank-badge {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
       }
     }
 
@@ -731,8 +955,44 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
     .fade-in {
-      animation: fadeIn 0.4s ease-out;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.6s ease-out;
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.6s ease-out;
+    }
+
+    .scale-in {
+      animation: scaleIn 0.5s ease-out;
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
     }
 
     /* Empty states */
@@ -765,15 +1025,15 @@
   <!-- Header -->
   <header class="dashboard-header">
     <div class="header-container">
-      <div class="brand">
+      <div class="brand slide-in-left">
         <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="logo">
         <div class="brand-info">
           <h1>Centre Diagnostic</h1>
           <p>Tableau de Bord Administrateur</p>
         </div>
       </div>
-      <div class="header-actions" id="header-actions" style="display: none;">
-        <span class="status-badge">
+      <div class="header-actions slide-in-right" id="header-actions" style="display: none;">
+        <span class="status-badge pulse">
           <i class="fas fa-circle"></i>
           Système en ligne
         </span>
@@ -834,7 +1094,7 @@
           Statistiques Générales
         </h2>
         <div class="stats-grid">
-          <div class="stat-card">
+          <div class="stat-card fade-in" style="animation-delay: 0.1s;">
             <div class="stat-header">
               <div class="stat-icon users">
                 <i class="fas fa-users"></i>
@@ -847,7 +1107,7 @@
             </div>
           </div>
 
-          <div class="stat-card">
+          <div class="stat-card fade-in" style="animation-delay: 0.2s;">
             <div class="stat-header">
               <div class="stat-icon score">
                 <i class="fas fa-chart-line"></i>
@@ -860,7 +1120,7 @@
             </div>
           </div>
 
-          <div class="stat-card">
+          <div class="stat-card fade-in" style="animation-delay: 0.3s;">
             <div class="stat-header">
               <div class="stat-icon time">
                 <i class="fas fa-clock"></i>
@@ -873,7 +1133,7 @@
             </div>
           </div>
 
-          <div class="stat-card">
+          <div class="stat-card fade-in" style="animation-delay: 0.4s;">
             <div class="stat-header">
               <div class="stat-icon trophy">
                 <i class="fas fa-trophy"></i>
@@ -894,7 +1154,7 @@
           <i class="fas fa-trophy"></i>
           Classement des Participants
         </h2>
-        <div class="table-container">
+        <div class="table-container scale-in">
           <div class="table-header">
             <h3 class="table-title">
               <i class="fas fa-medal"></i>
@@ -931,7 +1191,7 @@
           <i class="fas fa-question-circle"></i>
           Questions du Quiz
         </h2>
-        <div class="table-container">
+        <div class="table-container scale-in" style="animation-delay: 0.2s;">
           <div class="table-header">
             <h3 class="table-title">
               <i class="fas fa-list"></i>
