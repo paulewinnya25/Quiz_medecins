@@ -25,7 +25,6 @@ const timerDisplay = document.getElementById('timer') as HTMLDivElement;
 const scoreDisplay = document.getElementById('score-display') as HTMLDivElement;
 const playerResult = document.getElementById('player-result') as HTMLDivElement;
 const messageDisplay = document.getElementById('message') as HTMLParagraphElement;
-const leaderboardList = document.getElementById('leaderboard-list') as HTMLDivElement;
 
 // Génération du QR Code
 function initializeQRCode(): void {
@@ -241,31 +240,6 @@ async function endQuiz(): Promise<void> {
     message = '📚 Il faut encore s\'entraîner!';
   }
   messageDisplay.textContent = message;
-  
-  // Afficher le classement
-  displayLeaderboard();
-}
-
-// Afficher le classement
-function displayLeaderboard(): void {
-  const currentPlayerIndex = leaderboard.findIndex(p => 
-    p.name === playerName && p.score === score
-  );
-  
-  leaderboardList.innerHTML = leaderboard.map((player, index) => {
-    const isCurrent = index === currentPlayerIndex;
-    const minutes = Math.floor(player.time / 60);
-    const seconds = player.time % 60;
-    const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    
-    return `
-      <div class="leaderboard-entry ${isCurrent ? 'current' : ''}">
-        <span class="rank">#${index + 1}</span>
-        <span class="player-name">${player.name}</span>
-        <span class="player-score">${player.score}/${player.totalQuestions} (${timeStr})</span>
-      </div>
-    `;
-  }).join('');
 }
 
 // Recommencer le quiz
