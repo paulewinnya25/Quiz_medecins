@@ -142,6 +142,12 @@
     .header-actions {
       display: flex;
       align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header-buttons {
+      display: flex;
+      align-items: center;
       gap: 1rem;
     }
 
@@ -376,10 +382,10 @@
     /* Layout en deux colonnes */
     .dashboard-layout {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1fr 1fr;
       gap: 3rem;
       align-items: start;
-      margin-top: 1rem;
+      margin-top: 2rem;
     }
 
     .left-column {
@@ -416,23 +422,6 @@
       background: linear-gradient(180deg, transparent, rgba(0, 168, 107, 0.3), transparent);
     }
 
-    /* Page Header */
-    .page-header {
-      margin-bottom: 2rem;
-    }
-
-    .page-title {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--gray-800);
-      margin-bottom: 0.5rem;
-    }
-
-    .page-subtitle {
-      color: var(--gray-500);
-      font-size: 1.125rem;
-      font-weight: 500;
-    }
 
     /* Stats Section */
     .stats-section {
@@ -982,6 +971,22 @@
         padding: 0 1rem;
       }
 
+      .header-actions {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .header-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .btn {
+        padding: 0.75rem 1.25rem;
+        min-width: 140px;
+        font-size: 0.8rem;
+      }
+
       .brand-info h1 {
         font-size: 1.5rem;
       }
@@ -1195,6 +1200,16 @@
         </div>
       </div>
       <div class="header-actions slide-in-right" id="header-actions" style="display: none;">
+        <div class="header-buttons">
+          <button class="btn btn-warning" id="refresh-btn">
+            <i class="fas fa-sync-alt"></i>
+            Actualiser les données
+          </button>
+          <button class="btn btn-danger" id="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            Déconnexion
+          </button>
+        </div>
         <span class="status-badge pulse">
           <i class="fas fa-circle"></i>
           Système en ligne
@@ -1233,22 +1248,6 @@
   <!-- Dashboard -->
   <div id="dashboard" class="dashboard">
     <div class="dashboard-container">
-      <!-- Page Header -->
-      <header class="page-header">
-        <h1 class="page-title">Tableau de Bord</h1>
-        <p class="page-subtitle">Gestion et analyse du quiz Centre Diagnostic</p>
-        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-          <button class="btn btn-warning" id="refresh-btn">
-            <i class="fas fa-sync-alt"></i>
-            Actualiser les données
-          </button>
-          <button class="btn btn-danger" id="logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            Déconnexion
-          </button>
-        </div>
-      </header>
-
       <!-- Layout en deux colonnes -->
       <div class="dashboard-layout">
         <!-- Colonne de gauche -->
