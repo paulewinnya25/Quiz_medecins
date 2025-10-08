@@ -115,7 +115,7 @@ async function loadDashboardData(): Promise<void> {
     displayLeaderboard(data);
     
     // Afficher les questions
-    displayQuestions()
+    displayQuestions();
     
   } catch (error) {
     console.error('❌ Erreur lors du chargement des données:', error);
