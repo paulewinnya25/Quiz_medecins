@@ -59,13 +59,23 @@
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--white);
+      background: #ffffff !important;
       color: var(--gray-800);
       line-height: 1.6;
       min-height: 100vh;
       font-size: 14px;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    * {
+      background-color: transparent !important;
+    }
+
+    .dashboard-header, .auth-container, .dashboard-container, .stat-card, .table-container, .question-card, .auth-card {
+      background: #ffffff !important;
     }
 
     /* Header */
@@ -143,11 +153,11 @@
       justify-content: center;
       align-items: center;
       min-height: 80vh;
-      background: var(--white);
+      background: #ffffff !important;
     }
 
     .auth-card {
-      background: var(--white);
+      background: #ffffff !important;
       padding: 3rem;
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-xl);
@@ -303,6 +313,7 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 2rem;
+      background: #ffffff !important;
     }
 
     /* Page Header */
@@ -350,7 +361,7 @@
     }
 
     .stat-card {
-      background: var(--white);
+      background: #ffffff !important;
       padding: 2rem;
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
@@ -428,7 +439,7 @@
     }
 
     .table-container {
-      background: var(--white);
+      background: #ffffff !important;
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
       border: 1px solid var(--gray-200);
@@ -550,7 +561,7 @@
     }
 
     .question-card {
-      background: var(--white);
+      background: #ffffff !important;
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
       border: 1px solid var(--gray-200);
