@@ -11,6 +11,7 @@ export default defineConfig({
         admin: 'admin.html'
       }
     }
-  }
+  },
+  publicDir: 'public'
 })
 
