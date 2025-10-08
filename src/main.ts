@@ -184,19 +184,28 @@ async function endQuiz(): Promise<void> {
   await saveScore(playerResultData);
   
   // Récupérer le leaderboard depuis Supabase ou localStorage
-  leaderboard = await getLeaderboard();
-  
-  // Si Supabase n'est pas configuré, utiliser localStorage
-  if (leaderboard.length === 0 || !import.meta.env.VITE_SUPABASE_URL) {
-    const localLeaderboard = JSON.parse(localStorage.getItem('quizLeaderboard') || '[]');
-    localLeaderboard.push(playerResultData);
-    localLeaderboard.sort((a: PlayerResult, b: PlayerResult) => {
-      if (b.score !== a.score) return b.score - a.score;
-      return a.time - b.time;
-    });
-    leaderboard = localLeaderboard.slice(0, 10);
-    localStorage.setItem('quizLeaderboard', JSON.stringify(leaderboard));
+  try {
+    leaderboard = await getLeaderboard();
+  } catch (error) {
+    console.error('Erreur lors de la récupération du leaderboard:', error);
+    leaderboard = [];
   }
+  
+  // Toujours sauvegarder dans localStorage comme backup
+  const localLeaderboard = JSON.parse(localStorage.getItem('quizLeaderboard') || '[]');
+  localLeaderboard.push(playerResultData);
+  localLeaderboard.sort((a: PlayerResult, b: PlayerResult) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return a.time - b.time;
+  });
+  
+  // Si pas de données Supabase, utiliser localStorage
+  if (leaderboard.length === 0) {
+    leaderboard = localLeaderboard.slice(0, 10);
+  }
+  
+  // Toujours sauvegarder dans localStorage
+  localStorage.setItem('quizLeaderboard', JSON.stringify(localLeaderboard.slice(0, 10)));
   
   // Afficher les résultats
   quizSection.style.display = 'none';
