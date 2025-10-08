@@ -7,12 +7,14 @@ import { LeaderboardEntry } from './types';
 const ADMIN_PASSWORD = 'admin2025';
 
 // Éléments DOM
-const authSection = document.getElementById('auth-section') as HTMLDivElement;
+const authContainer = document.getElementById('auth-container') as HTMLDivElement;
 const dashboard = document.getElementById('dashboard') as HTMLDivElement;
 const passwordInput = document.getElementById('admin-password') as HTMLInputElement;
 const loginBtn = document.getElementById('login-btn') as HTMLButtonElement;
 const logoutBtn = document.getElementById('logout-btn') as HTMLButtonElement;
-const errorMessage = document.getElementById('error-message') as HTMLParagraphElement;
+const authError = document.getElementById('auth-error') as HTMLParagraphElement;
+const authForm = document.getElementById('auth-form') as HTMLFormElement;
+const headerActions = document.getElementById('header-actions') as HTMLDivElement;
 
 // Statistiques
 const totalParticipants = document.getElementById('total-participants') as HTMLDivElement;
@@ -39,9 +41,9 @@ function login(): void {
   if (password === ADMIN_PASSWORD) {
     sessionStorage.setItem('adminAuth', 'true');
     showDashboard();
-    errorMessage.style.display = 'none';
+    authError.style.display = 'none';
   } else {
-    errorMessage.style.display = 'block';
+    authError.style.display = 'block';
     passwordInput.value = '';
     passwordInput.focus();
   }
@@ -50,15 +52,23 @@ function login(): void {
 // Logout
 function logout(): void {
   sessionStorage.removeItem('adminAuth');
-  authSection.style.display = 'block';
-  dashboard.style.display = 'none';
+  showAuth();
+}
+
+// Afficher l'auth
+function showAuth(): void {
+  authContainer.style.display = 'flex';
+  dashboard.classList.remove('active');
+  headerActions.style.display = 'none';
   passwordInput.value = '';
+  authError.style.display = 'none';
 }
 
 // Afficher le dashboard
 function showDashboard(): void {
-  authSection.style.display = 'none';
-  dashboard.style.display = 'block';
+  authContainer.style.display = 'none';
+  dashboard.classList.add('active');
+  headerActions.style.display = 'flex';
   loadDashboardData();
 }
 
@@ -179,26 +189,41 @@ function displayLeaderboard(data: LeaderboardEntry[]): void {
 
 // Afficher les questions et réponses
 function displayQuestions(): void {
-  questionsList.innerHTML = questions.map((q, index) => {
-    return `
-      <div class="question-item">
-        <div class="question-text">Question ${index + 1}: ${q.question}</div>
-        <div class="answers-list">
-          ${q.answers.map((answer, ansIndex) => {
-            const isCorrect = ansIndex === q.correctAnswer;
-            return `
-              <div class="answer-item ${isCorrect ? 'correct' : ''}">
-                ${isCorrect ? '✓ ' : ''}${answer}${isCorrect ? ' (Réponse correcte)' : ''}
-              </div>
-            `;
-          }).join('')}
+  questionsList.innerHTML = `
+    <div class="questions-grid">
+      ${questions.map((q, index) => `
+        <div class="question-card">
+          <div class="question-header">
+            <div class="question-number">Question ${index + 1}</div>
+            <div class="question-text">${q.question}</div>
+          </div>
+          <div class="question-body">
+            <ul class="answer-list">
+              ${q.answers.map((answer, ansIndex) => {
+                const isCorrect = ansIndex === q.correctAnswer;
+                return `
+                  <li class="answer-item">
+                    <div class="answer-icon ${isCorrect ? 'correct' : 'incorrect'}">
+                      ${isCorrect ? '✓' : '✗'}
+                    </div>
+                    <span>${answer}</span>
+                  </li>
+                `;
+              }).join('')}
+            </ul>
+          </div>
         </div>
-      </div>
-    `;
-  }).join('');
+      `).join('')}
+    </div>
+  `;
 }
 
 // Event listeners
+authForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  login();
+});
+
 loginBtn.addEventListener('click', login);
 logoutBtn.addEventListener('click', logout);
 document.getElementById('refresh-btn')?.addEventListener('click', loadDashboardData);
