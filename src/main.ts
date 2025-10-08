@@ -282,7 +282,6 @@ function restartQuiz(): void {
 }
 
 // Event listeners
-document.getElementById('start-btn')?.addEventListener('click', startQuiz);
 document.getElementById('submit-name-btn')?.addEventListener('click', submitName);
 document.getElementById('next-btn')?.addEventListener('click', nextQuestion);
 document.getElementById('restart-btn')?.addEventListener('click', restartQuiz);
