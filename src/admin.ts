@@ -65,15 +65,23 @@ function showDashboard(): void {
 // Charger les données du dashboard
 async function loadDashboardData(): Promise<void> {
   try {
-    // Récupérer le leaderboard
-    const leaderboardData = await getLeaderboard();
+    // Essayer d'abord localStorage directement
+    let data: any[] = [];
+    const localData = localStorage.getItem('quizLeaderboard');
     
-    // Si vide, essayer localStorage
-    let data = leaderboardData;
-    if (data.length === 0) {
-      const localData = localStorage.getItem('quizLeaderboard');
-      data = localData ? JSON.parse(localData) : [];
+    if (localData) {
+      console.log('📦 Chargement depuis localStorage');
+      data = JSON.parse(localData);
     }
+    
+    // Si localStorage vide, essayer Supabase
+    if (data.length === 0) {
+      console.log('🔄 Tentative de chargement depuis Supabase');
+      const leaderboardData = await getLeaderboard();
+      data = leaderboardData;
+    }
+    
+    console.log('📊 Données chargées:', data.length, 'participants');
     
     // Calculer les statistiques
     if (data.length > 0) {
@@ -94,17 +102,24 @@ async function loadDashboardData(): Promise<void> {
       // Meilleur score
       const best = data[0]; // Déjà trié
       bestScore.textContent = `${best.score}/10`;
+    } else {
+      // Pas de données - afficher valeurs par défaut
+      console.log('⚠️ Aucune donnée trouvée');
+      totalParticipants.textContent = '0';
+      avgScore.textContent = '0%';
+      avgTime.textContent = '0:00';
+      bestScore.textContent = '0/10';
     }
     
     // Afficher le classement
     displayLeaderboard(data);
     
     // Afficher les questions
-    displayQuestions();
+    displayQuestions()
     
   } catch (error) {
-    console.error('Erreur lors du chargement des données:', error);
-    leaderboardTable.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #f44336;">Erreur de chargement</td></tr>';
+    console.error('❌ Erreur lors du chargement des données:', error);
+    leaderboardTable.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #f44336;">Erreur de chargement. Vérifiez la console.</td></tr>';
   }
 }
 
