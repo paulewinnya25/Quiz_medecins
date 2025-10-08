@@ -12,6 +12,9 @@ export default defineConfig({
       }
     }
   },
-  publicDir: 'public'
+  publicDir: 'public',
+  define: {
+    global: 'globalThis'
+  }
 })
 
