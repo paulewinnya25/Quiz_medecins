@@ -373,11 +373,19 @@
       box-shadow: 0 8px 24px rgba(0, 168, 107, 0.2);
       transition: var(--transition);
       background: white;
-      padding: 8px;
+      padding: 12px;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      filter: none;
     }
 
     .main-logo:hover {
-      transform: scale(1.05);
+      transform: scale(1.02) translateZ(0);
       box-shadow: 0 12px 32px rgba(0, 168, 107, 0.3);
     }
 
@@ -993,6 +1001,7 @@
       .main-logo {
         width: 100px;
         height: 100px;
+        padding: 10px;
       }
 
       .actions-content {
@@ -1142,6 +1151,7 @@
       .main-logo {
         width: 80px;
         height: 80px;
+        padding: 8px;
       }
     }
 
