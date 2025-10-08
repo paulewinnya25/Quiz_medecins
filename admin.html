@@ -13,18 +13,32 @@
       --primary-color: #0066cc;
       --secondary-color: #00a3e0;
       --accent-color: #00a86b;
-      --success-color: #28a745;
-      --warning-color: #ffc107;
-      --danger-color: #dc3545;
-      --light-gray: #f8f9fa;
-      --medium-gray: #6c757d;
-      --dark-gray: #343a40;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --info-color: #3b82f6;
+      
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      
       --white: #ffffff;
-      --border-color: #e9ecef;
-      --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
-      --border-radius: 8px;
-      --transition: all 0.2s ease;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      
+      --border-radius: 0.5rem;
+      --border-radius-lg: 0.75rem;
+      --transition: all 0.15s ease-in-out;
     }
 
     * {
@@ -35,8 +49,8 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #fafbfc;
-      color: var(--dark-gray);
+      background: var(--gray-50);
+      color: var(--gray-900);
       line-height: 1.6;
       min-height: 100vh;
     }
@@ -44,77 +58,100 @@
     /* Header */
     .admin-header {
       background: var(--white);
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--gray-200);
       padding: 1rem 0;
-      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
     }
 
-    .header-content {
-      max-width: 1200px;
+    .header-container {
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .logo-section {
+    .logo-brand {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
 
     .logo {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--white);
-      padding: 6px;
-      box-shadow: var(--shadow);
+      width: 48px;
+      height: 48px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
     }
 
-    .header-title {
-      font-size: 1.5rem;
+    .brand-info h1 {
+      font-size: 1.25rem;
       font-weight: 600;
-      color: var(--dark-gray);
+      color: var(--gray-900);
+      margin-bottom: 0.125rem;
     }
 
-    .header-subtitle {
-      font-size: 0.9rem;
-      color: var(--medium-gray);
-      margin-top: 0.25rem;
+    .brand-info p {
+      font-size: 0.875rem;
+      color: var(--gray-500);
     }
 
-    /* Main Container */
-    .admin-container {
-      max-width: 1200px;
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--success-color);
+      color: white;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-badge i {
+      font-size: 0.5rem;
+    }
+
+    /* Main Layout */
+    .admin-layout {
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 2rem 1.5rem;
     }
 
     /* Auth Section */
-    .auth-container {
+    .auth-section {
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 70vh;
+      min-height: 80vh;
     }
 
     .auth-card {
       background: var(--white);
-      padding: 2.5rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-lg);
+      padding: 3rem;
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-xl);
       width: 100%;
       max-width: 400px;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--gray-200);
     }
 
     .auth-icon {
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       background: var(--primary-color);
-      border-radius: 50%;
+      border-radius: var(--border-radius-lg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -126,15 +163,15 @@
     .auth-title {
       font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--dark-gray);
+      color: var(--gray-900);
       text-align: center;
+      margin-bottom: 0.5rem;
     }
 
     .auth-description {
-      color: var(--medium-gray);
-      margin-bottom: 2rem;
+      color: var(--gray-500);
       text-align: center;
+      margin-bottom: 2rem;
     }
 
     .form-group {
@@ -145,13 +182,14 @@
       display: block;
       font-weight: 500;
       margin-bottom: 0.5rem;
-      color: var(--dark-gray);
+      color: var(--gray-700);
+      font-size: 0.875rem;
     }
 
     .form-input {
       width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--gray-300);
       border-radius: var(--border-radius);
       font-size: 1rem;
       transition: var(--transition);
@@ -161,75 +199,83 @@
     .form-input:focus {
       outline: none;
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
     }
 
     .btn {
-      background: var(--primary-color);
-      color: white;
-      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
       padding: 0.75rem 1.5rem;
+      border: none;
       border-radius: var(--border-radius);
-      font-size: 1rem;
+      font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
       transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
       text-decoration: none;
       width: 100%;
-      justify-content: center;
     }
 
-    .btn:hover {
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
       background: #0052a3;
       transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
     }
 
     .btn-secondary {
-      background: var(--medium-gray);
+      background: var(--gray-600);
+      color: white;
     }
 
     .btn-secondary:hover {
-      background: var(--dark-gray);
+      background: var(--gray-700);
     }
 
     .btn-success {
       background: var(--success-color);
+      color: white;
     }
 
     .btn-success:hover {
-      background: #218838;
+      background: #059669;
     }
 
     .btn-danger {
       background: var(--danger-color);
+      color: white;
     }
 
     .btn-danger:hover {
-      background: #c82333;
+      background: #dc2626;
     }
 
     .btn-warning {
       background: var(--warning-color);
-      color: var(--dark-gray);
+      color: white;
     }
 
     .btn-warning:hover {
-      background: #e0a800;
+      background: #d97706;
     }
 
     .error-message {
-      background: #f8d7da;
-      color: #721c24;
+      background: #fef2f2;
+      color: #dc2626;
       padding: 1rem;
       border-radius: var(--border-radius);
       margin-top: 1rem;
-      border: 1px solid #f5c6cb;
+      border: 1px solid #fecaca;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      font-size: 0.875rem;
     }
 
     /* Dashboard */
@@ -243,50 +289,81 @@
 
     .dashboard-header {
       background: var(--white);
-      padding: 1.5rem;
-      border-radius: var(--border-radius);
+      padding: 2rem;
+      border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow);
+      border: 1px solid var(--gray-200);
       margin-bottom: 2rem;
-      border: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       flex-wrap: wrap;
       gap: 1rem;
     }
 
     .dashboard-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--dark-gray);
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 0.25rem;
     }
 
     .dashboard-subtitle {
-      color: var(--medium-gray);
-      margin-top: 0.25rem;
-      font-size: 0.9rem;
+      color: var(--gray-500);
+      font-size: 1rem;
     }
 
     .dashboard-actions {
       display: flex;
       gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .dashboard-actions .btn {
+      width: auto;
+      min-width: 120px;
     }
 
     /* Stats Grid */
+    .stats-section {
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
-      margin-bottom: 2rem;
     }
 
     .stat-card {
       background: var(--white);
       padding: 1.5rem;
-      border-radius: var(--border-radius);
+      border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--gray-200);
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-color);
     }
 
     .stat-card:hover {
@@ -302,62 +379,71 @@
     }
 
     .stat-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--border-radius);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       color: white;
     }
 
-    .stat-icon.users { background: var(--primary-color); }
+    .stat-icon.users { background: var(--info-color); }
     .stat-icon.score { background: var(--success-color); }
-    .stat-icon.time { background: var(--warning-color); color: var(--dark-gray); }
-    .stat-icon.trophy { background: #ffd700; color: var(--dark-gray); }
+    .stat-icon.time { background: var(--warning-color); }
+    .stat-icon.trophy { background: #f59e0b; }
 
-    .stat-label {
+    .stat-content h3 {
+      font-size: 0.875rem;
       font-weight: 500;
-      color: var(--dark-gray);
-      font-size: 0.9rem;
+      color: var(--gray-500);
+      margin-bottom: 0.25rem;
     }
 
     .stat-value {
-      font-size: 2rem;
+      font-size: 2.25rem;
       font-weight: 700;
-      color: var(--primary-color);
+      color: var(--gray-900);
+      line-height: 1;
       margin-bottom: 0.25rem;
     }
 
     .stat-description {
-      color: var(--medium-gray);
-      font-size: 0.8rem;
+      color: var(--gray-500);
+      font-size: 0.75rem;
     }
 
     /* Tables */
-    .table-container {
-      background: var(--white);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-      overflow: hidden;
+    .table-section {
       margin-bottom: 2rem;
     }
 
+    .table-container {
+      background: var(--white);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+    }
+
     .table-header {
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--border-color);
-      background: var(--light-gray);
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--gray-50);
     }
 
     .table-title {
-      font-size: 1.1rem;
+      font-size: 1.125rem;
       font-weight: 600;
-      color: var(--dark-gray);
+      color: var(--gray-900);
       display: flex;
       align-items: center;
       gap: 0.5rem;
+    }
+
+    .table-content {
+      overflow-x: auto;
     }
 
     .leaderboard-table {
@@ -366,63 +452,91 @@
     }
 
     .leaderboard-table th {
-      background: var(--light-gray);
+      background: var(--gray-50);
       padding: 1rem 1.5rem;
       text-align: left;
       font-weight: 600;
-      color: var(--dark-gray);
-      border-bottom: 1px solid var(--border-color);
-      font-size: 0.9rem;
+      color: var(--gray-700);
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
     }
 
     .leaderboard-table td {
       padding: 1rem 1.5rem;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--gray-200);
       transition: var(--transition);
     }
 
     .leaderboard-table tbody tr:hover {
-      background: var(--light-gray);
+      background: var(--gray-50);
     }
 
     .leaderboard-table tbody tr:last-child td {
       border-bottom: none;
     }
 
+    .rank-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
     .rank-badge {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       font-weight: 600;
       color: white;
-      margin-right: 0.75rem;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
     }
 
-    .rank-badge.gold { background: #ffd700; color: var(--dark-gray); }
-    .rank-badge.silver { background: #c0c0c0; color: var(--dark-gray); }
+    .rank-badge.gold { background: #fbbf24; }
+    .rank-badge.silver { background: #9ca3af; }
     .rank-badge.bronze { background: #cd7f32; }
-    .rank-badge.default { background: var(--medium-gray); }
+    .rank-badge.default { background: var(--gray-500); }
+
+    .player-name {
+      font-weight: 500;
+      color: var(--gray-900);
+    }
+
+    .score-cell {
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .time-cell {
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+
+    .date-cell {
+      font-size: 0.875rem;
+      color: var(--gray-500);
+    }
 
     /* Questions */
     .questions-container {
-      padding: 1.5rem;
+      padding: 2rem;
     }
 
     .questions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       gap: 1.5rem;
     }
 
     .question-card {
       background: var(--white);
-      border-radius: var(--border-radius);
+      border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--gray-200);
       overflow: hidden;
       transition: var(--transition);
     }
@@ -435,22 +549,23 @@
     .question-header {
       background: var(--primary-color);
       color: white;
-      padding: 1.25rem;
+      padding: 1.5rem;
     }
 
     .question-number {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       opacity: 0.9;
       margin-bottom: 0.5rem;
+      font-weight: 500;
     }
 
     .question-text {
       font-weight: 500;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     .question-body {
-      padding: 1.25rem;
+      padding: 1.5rem;
     }
 
     .answer-list {
@@ -462,7 +577,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--gray-200);
     }
 
     .answer-item:last-child {
@@ -470,14 +585,14 @@
     }
 
     .answer-icon {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 700;
+      font-size: 0.75rem;
+      font-weight: 600;
       flex-shrink: 0;
     }
 
@@ -487,8 +602,8 @@
     }
 
     .answer-icon.incorrect {
-      background: var(--danger-color);
-      color: white;
+      background: var(--gray-300);
+      color: var(--gray-600);
     }
 
     /* Loading States */
@@ -497,13 +612,13 @@
       align-items: center;
       justify-content: center;
       padding: 3rem;
-      color: var(--medium-gray);
+      color: var(--gray-500);
     }
 
     .spinner {
       width: 20px;
       height: 20px;
-      border: 2px solid var(--border-color);
+      border: 2px solid var(--gray-200);
       border-top: 2px solid var(--primary-color);
       border-radius: 50%;
       animation: spin 1s linear infinite;
@@ -515,30 +630,16 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Status indicators */
-    .status-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-
     /* Responsive */
     @media (max-width: 768px) {
-      .admin-container {
+      .admin-layout {
         padding: 1rem;
       }
 
-      .header-content {
+      .header-container {
         flex-direction: column;
-        text-align: center;
         gap: 1rem;
+        text-align: center;
       }
 
       .dashboard-header {
@@ -563,7 +664,7 @@
       }
 
       .leaderboard-table {
-        font-size: 0.85rem;
+        font-size: 0.875rem;
       }
 
       .leaderboard-table th,
@@ -581,21 +682,45 @@
     .fade-in {
       animation: fadeIn 0.3s ease-out;
     }
+
+    /* Empty states */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--gray-500);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--gray-700);
+    }
+
+    .empty-state p {
+      font-size: 0.875rem;
+    }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header class="admin-header">
-    <div class="header-content">
-      <div class="logo-section">
+    <div class="header-container">
+      <div class="logo-brand">
         <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="logo">
-        <div>
-          <h1 class="header-title">Centre Diagnostic</h1>
-          <p class="header-subtitle">Tableau de Bord Administrateur</p>
+        <div class="brand-info">
+          <h1>Centre Diagnostic</h1>
+          <p>Tableau de Bord Administrateur</p>
         </div>
       </div>
-      <div class="header-actions" id="header-actions" style="display: none;">
-        <span class="status-indicator">
+      <div class="header-status" id="header-actions" style="display: none;">
+        <span class="status-badge">
           <i class="fas fa-circle"></i>
           Système en ligne
         </span>
@@ -603,41 +728,42 @@
     </div>
   </header>
 
-  <!-- Main Container -->
-  <div class="admin-container">
+  <!-- Main Layout -->
+  <main class="admin-layout">
     <!-- Auth Section -->
-    <div id="auth-container" class="auth-container">
+    <section id="auth-container" class="auth-section">
       <div class="auth-card fade-in">
         <div class="auth-icon">
           <i class="fas fa-shield-alt"></i>
         </div>
         <h2 class="auth-title">Accès Administrateur</h2>
-        <p class="auth-description">Connectez-vous pour accéder au tableau de bord</p>
+        <p class="auth-description">Connectez-vous pour accéder au tableau de bord de gestion</p>
         
         <form id="auth-form">
           <div class="form-group">
             <label for="admin-password" class="form-label">Mot de passe</label>
             <input type="password" id="admin-password" class="form-input" placeholder="Entrez votre mot de passe" required>
           </div>
-          <button type="submit" class="btn" id="login-btn">
+          <button type="submit" class="btn btn-primary" id="login-btn">
             <i class="fas fa-sign-in-alt"></i>
             Se connecter
           </button>
         </form>
         
-        <p id="auth-error" class="error-message" style="display: none;">
+        <div id="auth-error" class="error-message" style="display: none;">
           <i class="fas fa-exclamation-triangle"></i>
           Mot de passe incorrect. Veuillez réessayer.
-        </p>
+        </div>
       </div>
-    </div>
+    </section>
 
     <!-- Dashboard -->
     <div id="dashboard" class="dashboard">
-      <div class="dashboard-header">
+      <!-- Dashboard Header -->
+      <header class="dashboard-header">
         <div>
-          <h2 class="dashboard-title">Tableau de Bord</h2>
-          <p class="dashboard-subtitle">Gestion du quiz Centre Diagnostic</p>
+          <h1 class="dashboard-title">Tableau de Bord</h1>
+          <p class="dashboard-subtitle">Gestion et analyse du quiz Centre Diagnostic</p>
         </div>
         <div class="dashboard-actions">
           <button class="btn btn-warning" id="refresh-btn">
@@ -649,107 +775,127 @@
             Déconnexion
           </button>
         </div>
-      </div>
+      </header>
 
-      <!-- Statistics -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-header">
-            <div class="stat-icon users">
-              <i class="fas fa-users"></i>
+      <!-- Statistics Section -->
+      <section class="stats-section">
+        <h2 class="section-title">
+          <i class="fas fa-chart-bar"></i>
+          Statistiques Générales
+        </h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon users">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="stat-content">
+                <h3>Participants</h3>
+                <div class="stat-value" id="total-participants">0</div>
+                <p class="stat-description">Total des joueurs</p>
+              </div>
             </div>
-            <div>
-              <div class="stat-label">Participants</div>
-              <div class="stat-value" id="total-participants">0</div>
-              <div class="stat-description">Total des joueurs</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon score">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="stat-content">
+                <h3>Score Moyen</h3>
+                <div class="stat-value" id="avg-score">0%</div>
+                <p class="stat-description">Performance générale</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon time">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="stat-content">
+                <h3>Temps Moyen</h3>
+                <div class="stat-value" id="avg-time">0:00</div>
+                <p class="stat-description">Durée moyenne</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon trophy">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <div class="stat-content">
+                <h3>Meilleur Score</h3>
+                <div class="stat-value" id="best-score">0/10</div>
+                <p class="stat-description">Record absolu</p>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="stat-card">
-          <div class="stat-header">
-            <div class="stat-icon score">
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div>
-              <div class="stat-label">Score Moyen</div>
-              <div class="stat-value" id="avg-score">0%</div>
-              <div class="stat-description">Performance générale</div>
-            </div>
+      <!-- Leaderboard Section -->
+      <section class="table-section">
+        <h2 class="section-title">
+          <i class="fas fa-trophy"></i>
+          Classement des Participants
+        </h2>
+        <div class="table-container">
+          <div class="table-header">
+            <h3 class="table-title">
+              <i class="fas fa-medal"></i>
+              Résultats du Quiz
+            </h3>
+          </div>
+          <div class="table-content">
+            <table class="leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Rang</th>
+                  <th>Nom</th>
+                  <th>Score</th>
+                  <th>Temps</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-body">
+                <tr>
+                  <td colspan="5" class="loading">
+                    <div class="spinner"></div>
+                    Chargement du classement...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+      </section>
 
-        <div class="stat-card">
-          <div class="stat-header">
-            <div class="stat-icon time">
-              <i class="fas fa-clock"></i>
-            </div>
-            <div>
-              <div class="stat-label">Temps Moyen</div>
-              <div class="stat-value" id="avg-time">0:00</div>
-              <div class="stat-description">Durée moyenne</div>
-            </div>
+      <!-- Questions Section -->
+      <section class="table-section">
+        <h2 class="section-title">
+          <i class="fas fa-question-circle"></i>
+          Questions du Quiz
+        </h2>
+        <div class="table-container">
+          <div class="table-header">
+            <h3 class="table-title">
+              <i class="fas fa-list"></i>
+              Contenu du Questionnaire
+            </h3>
+          </div>
+          <div id="questions-list" class="loading">
+            <div class="spinner"></div>
+            Chargement des questions...
           </div>
         </div>
-
-        <div class="stat-card">
-          <div class="stat-header">
-            <div class="stat-icon trophy">
-              <i class="fas fa-trophy"></i>
-            </div>
-            <div>
-              <div class="stat-label">Meilleur Score</div>
-              <div class="stat-value" id="best-score">0/10</div>
-              <div class="stat-description">Record absolu</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Leaderboard -->
-      <div class="table-container">
-        <div class="table-header">
-          <h3 class="table-title">
-            <i class="fas fa-trophy"></i>
-            Classement des Participants
-          </h3>
-        </div>
-        <table class="leaderboard-table">
-          <thead>
-            <tr>
-              <th>Rang</th>
-              <th>Nom</th>
-              <th>Score</th>
-              <th>Temps</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody id="leaderboard-body">
-            <tr>
-              <td colspan="5" class="loading">
-                <div class="spinner"></div>
-                Chargement du classement...
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Questions -->
-      <div class="table-container">
-        <div class="table-header">
-          <h3 class="table-title">
-            <i class="fas fa-question-circle"></i>
-            Questions du Quiz
-          </h3>
-        </div>
-        <div id="questions-list" class="loading">
-          <div class="spinner"></div>
-          Chargement des questions...
-        </div>
-      </div>
+      </section>
     </div>
-  </div>
+  </main>
 
   <script type="module" src="/src/admin.ts"></script>
 </body>
