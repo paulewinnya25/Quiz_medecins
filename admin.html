@@ -342,17 +342,49 @@
       overflow-y: auto;
     }
 
-    /* Section Actions */
-    .actions-section {
-      margin-bottom: 2rem;
+    /* Section Header */
+    .header-section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 255, 248, 0.9) 100%);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 8px 32px rgba(0, 168, 107, 0.1);
+      border: 1px solid rgba(0, 168, 107, 0.15);
+      margin-bottom: 3rem;
+      padding: 2.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-content {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
       justify-content: center;
+    }
+
+    .main-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: var(--radius-xl);
+      box-shadow: 0 8px 24px rgba(0, 168, 107, 0.2);
+      transition: var(--transition);
+      background: white;
+      padding: 8px;
+    }
+
+    .main-logo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(0, 168, 107, 0.3);
     }
 
     .actions-content {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     /* Layout en deux colonnes */
@@ -952,6 +984,17 @@
         gap: 1rem;
       }
 
+      .header-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .main-logo {
+        width: 100px;
+        height: 100px;
+      }
+
       .actions-content {
         flex-direction: column;
         gap: 0.75rem;
@@ -1091,6 +1134,15 @@
         font-size: 0.8rem;
       }
 
+      .header-section {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .main-logo {
+        width: 80px;
+        height: 80px;
+      }
     }
 
     /* Animations */
@@ -1201,17 +1253,22 @@
   <!-- Dashboard -->
   <div id="dashboard" class="dashboard">
     <div class="dashboard-container">
-      <!-- Actions Section -->
-      <section class="actions-section">
-        <div class="actions-content">
-          <button class="btn btn-warning" id="refresh-btn">
-            <i class="fas fa-sync-alt"></i>
-            Actualiser les données
-          </button>
-          <button class="btn btn-danger" id="logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            Déconnexion
-          </button>
+      <!-- Header Section -->
+      <section class="header-section">
+        <div class="header-content">
+          <div class="logo-section">
+            <img src="https://res.cloudinary.com/dd64mwkl2/image/upload/v1758286702/Centre_Diagnostic-Logo_xhxxpv.png" alt="Centre Diagnostic Logo" class="main-logo">
+          </div>
+          <div class="actions-content">
+            <button class="btn btn-warning" id="refresh-btn">
+              <i class="fas fa-sync-alt"></i>
+              Actualiser les données
+            </button>
+            <button class="btn btn-danger" id="logout-btn">
+              <i class="fas fa-sign-out-alt"></i>
+              Déconnexion
+            </button>
+          </div>
         </div>
       </section>
 
