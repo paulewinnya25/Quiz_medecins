@@ -365,12 +365,32 @@
     }
 
     .dashboard-container {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 2rem;
       background: #ffffff !important;
       height: calc(100vh - 80px);
       overflow-y: auto;
+    }
+
+    /* Layout en deux colonnes */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
 
     /* Page Header */
@@ -413,7 +433,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
     }
 
@@ -693,8 +713,8 @@
 
     .questions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 2rem;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
 
     .question-card {
@@ -867,8 +887,13 @@
         height: calc(100vh - 80px);
       }
 
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
       .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .questions-grid {
@@ -914,6 +939,11 @@
       }
 
       .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .dashboard-layout {
         grid-template-columns: 1fr;
         gap: 1rem;
       }
@@ -1146,123 +1176,132 @@
         </div>
       </header>
 
-      <!-- Statistics Section -->
-      <section class="stats-section">
-        <h2 class="section-title">
-          <i class="fas fa-chart-bar"></i>
-          Statistiques Générales
-        </h2>
-        <div class="stats-grid">
-          <div class="stat-card fade-in" style="animation-delay: 0.1s;">
-            <div class="stat-header">
-              <div class="stat-icon users">
-                <i class="fas fa-users"></i>
+      <!-- Layout en deux colonnes -->
+      <div class="dashboard-layout">
+        <!-- Colonne de gauche -->
+        <div class="left-column">
+          <!-- Statistics Section -->
+          <section class="stats-section">
+            <h2 class="section-title">
+              <i class="fas fa-chart-bar"></i>
+              Statistiques Générales
+            </h2>
+            <div class="stats-grid">
+              <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+                <div class="stat-header">
+                  <div class="stat-icon users">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <div class="stat-content">
+                    <h3>Participants</h3>
+                    <div class="stat-value" id="total-participants">0</div>
+                    <p class="stat-description">Total des joueurs</p>
+                  </div>
+                </div>
               </div>
-              <div class="stat-content">
-                <h3>Participants</h3>
-                <div class="stat-value" id="total-participants">0</div>
-                <p class="stat-description">Total des joueurs</p>
-              </div>
-            </div>
-          </div>
 
-          <div class="stat-card fade-in" style="animation-delay: 0.2s;">
-            <div class="stat-header">
-              <div class="stat-icon score">
-                <i class="fas fa-chart-line"></i>
+              <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+                <div class="stat-header">
+                  <div class="stat-icon score">
+                    <i class="fas fa-chart-line"></i>
+                  </div>
+                  <div class="stat-content">
+                    <h3>Score Moyen</h3>
+                    <div class="stat-value" id="avg-score">0%</div>
+                    <p class="stat-description">Performance générale</p>
+                  </div>
+                </div>
               </div>
-              <div class="stat-content">
-                <h3>Score Moyen</h3>
-                <div class="stat-value" id="avg-score">0%</div>
-                <p class="stat-description">Performance générale</p>
-              </div>
-            </div>
-          </div>
 
-          <div class="stat-card fade-in" style="animation-delay: 0.3s;">
-            <div class="stat-header">
-              <div class="stat-icon time">
-                <i class="fas fa-clock"></i>
+              <div class="stat-card fade-in" style="animation-delay: 0.3s;">
+                <div class="stat-header">
+                  <div class="stat-icon time">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <div class="stat-content">
+                    <h3>Temps Moyen</h3>
+                    <div class="stat-value" id="avg-time">0:00</div>
+                    <p class="stat-description">Durée moyenne</p>
+                  </div>
+                </div>
               </div>
-              <div class="stat-content">
-                <h3>Temps Moyen</h3>
-                <div class="stat-value" id="avg-time">0:00</div>
-                <p class="stat-description">Durée moyenne</p>
-              </div>
-            </div>
-          </div>
 
-          <div class="stat-card fade-in" style="animation-delay: 0.4s;">
-            <div class="stat-header">
-              <div class="stat-icon trophy">
-                <i class="fas fa-trophy"></i>
-              </div>
-              <div class="stat-content">
-                <h3>Meilleur Score</h3>
-                <div class="stat-value" id="best-score">0/10</div>
-                <p class="stat-description">Record absolu</p>
+              <div class="stat-card fade-in" style="animation-delay: 0.4s;">
+                <div class="stat-header">
+                  <div class="stat-icon trophy">
+                    <i class="fas fa-trophy"></i>
+                  </div>
+                  <div class="stat-content">
+                    <h3>Meilleur Score</h3>
+                    <div class="stat-value" id="best-score">0/10</div>
+                    <p class="stat-description">Record absolu</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
+
+          <!-- Leaderboard Section -->
+          <section class="table-section">
+            <h2 class="section-title">
+              <i class="fas fa-trophy"></i>
+              Classement des Participants
+            </h2>
+            <div class="table-container scale-in">
+              <div class="table-header">
+                <h3 class="table-title">
+                  <i class="fas fa-medal"></i>
+                  Résultats du Quiz
+                </h3>
+              </div>
+              <div class="table-content">
+                <table class="leaderboard-table">
+                  <thead>
+                    <tr>
+                      <th>Rang</th>
+                      <th>Nom</th>
+                      <th>Score</th>
+                      <th>Temps</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="leaderboard-body">
+                    <tr>
+                      <td colspan="5" class="loading">
+                        <div class="spinner"></div>
+                        Chargement du classement...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
 
-      <!-- Leaderboard Section -->
-      <section class="table-section">
-        <h2 class="section-title">
-          <i class="fas fa-trophy"></i>
-          Classement des Participants
-        </h2>
-        <div class="table-container scale-in">
-          <div class="table-header">
-            <h3 class="table-title">
-              <i class="fas fa-medal"></i>
-              Résultats du Quiz
-            </h3>
-          </div>
-          <div class="table-content">
-            <table class="leaderboard-table">
-              <thead>
-                <tr>
-                  <th>Rang</th>
-                  <th>Nom</th>
-                  <th>Score</th>
-                  <th>Temps</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody id="leaderboard-body">
-                <tr>
-                  <td colspan="5" class="loading">
-                    <div class="spinner"></div>
-                    Chargement du classement...
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <!-- Colonne de droite -->
+        <div class="right-column">
+          <!-- Questions Section -->
+          <section class="table-section">
+            <h2 class="section-title">
+              <i class="fas fa-question-circle"></i>
+              Questions du Quiz
+            </h2>
+            <div class="table-container scale-in" style="animation-delay: 0.2s;">
+              <div class="table-header">
+                <h3 class="table-title">
+                  <i class="fas fa-list"></i>
+                  Contenu du Questionnaire
+                </h3>
+              </div>
+              <div id="questions-list" class="loading">
+                <div class="spinner"></div>
+                Chargement des questions...
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-
-      <!-- Questions Section -->
-      <section class="table-section">
-        <h2 class="section-title">
-          <i class="fas fa-question-circle"></i>
-          Questions du Quiz
-        </h2>
-        <div class="table-container scale-in" style="animation-delay: 0.2s;">
-          <div class="table-header">
-            <h3 class="table-title">
-              <i class="fas fa-list"></i>
-              Contenu du Questionnaire
-            </h3>
-          </div>
-          <div id="questions-list" class="loading">
-            <div class="spinner"></div>
-            Chargement des questions...
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   </div>
 
