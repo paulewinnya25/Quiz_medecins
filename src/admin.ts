@@ -65,23 +65,39 @@ function showDashboard(): void {
 // Charger les données du dashboard
 async function loadDashboardData(): Promise<void> {
   try {
+    console.log('🔄 Début du chargement des données admin...');
+    
     // Essayer d'abord localStorage directement
     let data: any[] = [];
     const localData = localStorage.getItem('quizLeaderboard');
     
     if (localData) {
-      console.log('📦 Chargement depuis localStorage');
-      data = JSON.parse(localData);
+      console.log('📦 Données trouvées dans localStorage:', localData.length, 'caractères');
+      try {
+        data = JSON.parse(localData);
+        console.log('📦 Données localStorage parsées:', data.length, 'participants');
+      } catch (e) {
+        console.error('❌ Erreur parsing localStorage:', e);
+        data = [];
+      }
+    } else {
+      console.log('📦 Aucune donnée dans localStorage');
     }
     
-    // Si localStorage vide, essayer Supabase
-    if (data.length === 0) {
-      console.log('🔄 Tentative de chargement depuis Supabase');
-      const leaderboardData = await getLeaderboard();
+    // Essayer aussi Supabase pour vérifier
+    console.log('🔄 Tentative de chargement depuis Supabase...');
+    const leaderboardData = await getLeaderboard();
+    console.log('🔄 Données Supabase:', leaderboardData.length, 'participants');
+    
+    // Prendre la source avec le plus de données
+    if (leaderboardData.length > data.length) {
+      console.log('📊 Utilisation des données Supabase (plus récentes)');
       data = leaderboardData;
+    } else {
+      console.log('📊 Utilisation des données localStorage');
     }
     
-    console.log('📊 Données chargées:', data.length, 'participants');
+    console.log('📊 Données finales chargées:', data.length, 'participants');
     
     // Calculer les statistiques
     if (data.length > 0) {
@@ -185,6 +201,7 @@ function displayQuestions(): void {
 // Event listeners
 loginBtn.addEventListener('click', login);
 logoutBtn.addEventListener('click', logout);
+document.getElementById('refresh-btn')?.addEventListener('click', loadDashboardData);
 
 passwordInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
