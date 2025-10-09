@@ -1,6 +1,6 @@
 import './style.css';
 import { questions } from './questions';
-import { getLeaderboard } from './supabase';
+import { getLeaderboard, cleanSupabaseDuplicates } from './supabase';
 import { LeaderboardEntry } from './types';
 
 // Mot de passe admin (à changer en production - devrait être dans variables d'environnement)
@@ -300,8 +300,11 @@ function debugData(): void {
 }
 
 // Fonction pour nettoyer les doublons
-function cleanDuplicates(): void {
+async function cleanDuplicates(): Promise<void> {
   console.log('🧹 === NETTOYAGE DES DOUBLONS ===');
+  
+  // Nettoyer Supabase d'abord
+  await cleanSupabaseDuplicates();
   
   // Nettoyer localStorage
   const localData = localStorage.getItem('quizLeaderboard');
@@ -322,8 +325,8 @@ function cleanDuplicates(): void {
     }
   }
   
-  // Recharger les données
-  loadDashboardDataWithModal();
+  // Recharger les données depuis Supabase
+  await loadDashboardDataWithModal();
   
   alert('Nettoyage terminé - Les doublons ont été supprimés');
 }
