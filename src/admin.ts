@@ -207,11 +207,16 @@ function displayQuestions(): void {
                     <div class="answer-icon ${isCorrect ? 'correct' : 'incorrect'}">
                       ${isCorrect ? '✓' : '✗'}
                     </div>
-                    <span>${answer}</span>
+                    <span class="${isCorrect ? 'answer-text correct' : 'answer-text'}">${answer}</span>
                   </li>
                 `;
               }).join('')}
             </ul>
+            ${q.explanation ? `
+              <div class="question-explanation">
+                <strong>💬 Explication :</strong> ${q.explanation}
+              </div>
+            ` : ''}
           </div>
         </div>
       `).join('')}

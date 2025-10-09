@@ -270,3 +270,35 @@ h2 {
   font-style: italic;
 }
 
+/* Explanation styling */
+.explanation {
+  margin-top: 20px;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #e6f3ff 0%, #f0f8ff 100%);
+  border-left: 4px solid var(--primary-color);
+  border-radius: 8px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.explanation p {
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+
+.explanation strong {
+  color: var(--primary-color);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

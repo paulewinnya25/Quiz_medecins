@@ -160,6 +160,15 @@ function selectAnswer(index: number): void {
     (a as HTMLElement).style.pointerEvents = 'none';
   });
   
+  // Afficher l'explication si elle existe
+  const explanation = questions[currentQuestion].explanation;
+  if (explanation) {
+    const explanationDiv = document.createElement('div');
+    explanationDiv.className = 'explanation';
+    explanationDiv.innerHTML = `<p><strong>💬 Explication :</strong> ${explanation}</p>`;
+    questionContainer.appendChild(explanationDiv);
+  }
+  
   // Afficher le bouton suivant
   nextBtn.style.display = 'block';
 }

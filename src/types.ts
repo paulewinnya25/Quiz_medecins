@@ -3,6 +3,7 @@ export interface Question {
   question: string;
   answers: string[];
   correctAnswer: number;
+  explanation?: string;
 }
 
 export interface PlayerResult {
