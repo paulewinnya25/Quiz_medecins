@@ -35,7 +35,8 @@ export async function saveScore(entry: LeaderboardEntry): Promise<void> {
         score: entry.score,
         total_questions: entry.totalQuestions,
         time: entry.time,
-        date: entry.date
+        date: entry.date,
+        answers: entry.answers ? JSON.stringify(entry.answers) : null
       }]);
 
     if (error) {
@@ -77,6 +78,7 @@ export async function getLeaderboard(): Promise<LeaderboardEntry[]> {
       totalQuestions: item.total_questions,
       time: item.time,
       date: item.date,
+      answers: item.answers ? JSON.parse(item.answers) : undefined,
       id: item.id,
       created_at: item.created_at
     }));

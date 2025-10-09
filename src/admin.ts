@@ -277,8 +277,13 @@ let currentLeaderboardData: LeaderboardEntry[] = [];
 // Fonction pour afficher les détails d'un participant
 (window as any).showPlayerDetails = function(index: number): void {
   const player = currentLeaderboardData[index];
-  if (!player || !player.answers) {
-    alert('Les réponses de ce participant ne sont pas disponibles.');
+  if (!player) {
+    alert('Participant non trouvé.');
+    return;
+  }
+  
+  if (!player.answers || player.answers.length === 0) {
+    alert('Les réponses de ce participant ne sont pas disponibles. Ce participant a probablement terminé le quiz avant l\'ajout de cette fonctionnalité.');
     return;
   }
 
