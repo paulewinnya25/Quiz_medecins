@@ -299,7 +299,37 @@ function debugData(): void {
   alert('Debug terminé - Vérifiez la console (F12)');
 }
 
+// Fonction pour nettoyer les doublons
+function cleanDuplicates(): void {
+  console.log('🧹 === NETTOYAGE DES DOUBLONS ===');
+  
+  // Nettoyer localStorage
+  const localData = localStorage.getItem('quizLeaderboard');
+  if (localData) {
+    try {
+      const localLeaderboard = JSON.parse(localData);
+      console.log('📦 localStorage avant nettoyage:', localLeaderboard.length, 'participants');
+      
+      // Supprimer les doublons basés sur nom + date
+      const uniqueParticipants = localLeaderboard.filter((participant: any, index: number, arr: any[]) => {
+        return arr.findIndex(p => p.name === participant.name && p.date === participant.date) === index;
+      });
+      
+      localStorage.setItem('quizLeaderboard', JSON.stringify(uniqueParticipants));
+      console.log('📦 localStorage après nettoyage:', uniqueParticipants.length, 'participants');
+    } catch (e) {
+      console.error('❌ Erreur nettoyage localStorage:', e);
+    }
+  }
+  
+  // Recharger les données
+  loadDashboardDataWithModal();
+  
+  alert('Nettoyage terminé - Les doublons ont été supprimés');
+}
+
 document.getElementById('debug-btn')?.addEventListener('click', debugData);
+document.getElementById('clean-duplicates-btn')?.addEventListener('click', cleanDuplicates);
 
 passwordInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {

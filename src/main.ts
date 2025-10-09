@@ -205,11 +205,21 @@ async function endQuiz(): Promise<void> {
   console.log('🔄 Sauvegarde du score de', playerName, ':', playerResultData);
   await saveScore(playerResultData);
   
-  // Fallback : Toujours sauvegarder dans localStorage aussi
+  // Fallback : Sauvegarder dans localStorage seulement si Supabase échoue
   let localLeaderboard = JSON.parse(localStorage.getItem('quizLeaderboard') || '[]');
-  localLeaderboard.push(playerResultData);
-  localStorage.setItem('quizLeaderboard', JSON.stringify(localLeaderboard));
-  console.log('📦 Sauvegarde de secours dans localStorage effectuée');
+  
+  // Vérifier si le participant existe déjà (éviter les doublons)
+  const existingIndex = localLeaderboard.findIndex((p: PlayerResult) => 
+    p.name === playerResultData.name && p.date === playerResultData.date
+  );
+  
+  if (existingIndex === -1) {
+    localLeaderboard.push(playerResultData);
+    localStorage.setItem('quizLeaderboard', JSON.stringify(localLeaderboard));
+    console.log('📦 Sauvegarde de secours dans localStorage effectuée');
+  } else {
+    console.log('📦 Participant déjà présent dans localStorage, pas de doublon');
+  }
   
   // Récupérer le leaderboard depuis Supabase ou localStorage
   try {
