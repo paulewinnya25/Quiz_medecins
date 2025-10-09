@@ -64,14 +64,6 @@ function showAuth(): void {
   authError.style.display = 'none';
 }
 
-// Afficher le dashboard
-function showDashboard(): void {
-  authContainer.style.display = 'none';
-  dashboard.classList.add('active');
-  headerActions.style.display = 'flex';
-  loadDashboardData();
-}
-
 // Charger les données du dashboard
 async function loadDashboardData(): Promise<void> {
   try {
@@ -177,7 +169,7 @@ function displayLeaderboard(data: LeaderboardEntry[]): void {
     });
     
     return `
-      <tr>
+      <tr data-player-index="${index}" onclick="showPlayerDetails(${index})">
         <td><span class="${rankBadgeClass}">${index + 1}</span></td>
         <td><strong>${player.name}</strong></td>
         <td>${player.score}/${player.totalQuestions} (${Math.round((player.score / player.totalQuestions) * 100)}%)</td>
@@ -224,6 +216,42 @@ function displayQuestions(): void {
   `;
 }
 
+// Sauvegarder les données pour les utiliser dans la modal
+async function loadDashboardDataWithModal(): Promise<void> {
+  await loadDashboardData();
+  // Mettre à jour la variable globale après le chargement
+  try {
+    let data: any[] = [];
+    const localData = localStorage.getItem('quizLeaderboard');
+    
+    if (localData) {
+      try {
+        data = JSON.parse(localData);
+      } catch (e) {
+        data = [];
+      }
+    }
+    
+    const leaderboardData = await getLeaderboard();
+    
+    if (leaderboardData.length > data.length) {
+      data = leaderboardData;
+    }
+    
+    currentLeaderboardData = data;
+  } catch (error) {
+    console.error('Erreur lors du chargement des données pour la modal:', error);
+  }
+}
+
+// Afficher le dashboard
+function showDashboard(): void {
+  authContainer.style.display = 'none';
+  dashboard.classList.add('active');
+  headerActions.style.display = 'flex';
+  loadDashboardDataWithModal();
+}
+
 // Event listeners
 authForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -232,7 +260,7 @@ authForm.addEventListener('submit', (e) => {
 
 loginBtn.addEventListener('click', login);
 logoutBtn.addEventListener('click', logout);
-document.getElementById('refresh-btn')?.addEventListener('click', loadDashboardData);
+document.getElementById('refresh-btn')?.addEventListener('click', loadDashboardDataWithModal);
 
 passwordInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
@@ -242,4 +270,143 @@ passwordInput.addEventListener('keypress', (e) => {
 
 // Vérifier l'auth au chargement
 checkAuth();
+
+// Variables globales pour la modal
+let currentLeaderboardData: LeaderboardEntry[] = [];
+
+// Fonction pour afficher les détails d'un participant
+(window as any).showPlayerDetails = function(index: number): void {
+  const player = currentLeaderboardData[index];
+  if (!player || !player.answers) {
+    alert('Les réponses de ce participant ne sont pas disponibles.');
+    return;
+  }
+
+  const modal = document.getElementById('player-details-modal') as HTMLDivElement;
+  const modalBody = document.getElementById('modal-body-content') as HTMLDivElement;
+
+  // Calculer les statistiques
+  const minutes = Math.floor(player.time / 60);
+  const seconds = player.time % 60;
+  const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  const percentage = Math.round((player.score / player.totalQuestions) * 100);
+  
+  const date = new Date(player.date);
+  const dateStr = date.toLocaleDateString('fr-FR', { 
+    day: '2-digit', 
+    month: '2-digit', 
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+  // Générer le contenu de la modal
+  let modalContent = `
+    <div class="player-info">
+      <h3 style="margin-bottom: 1rem; color: var(--accent-green); font-size: 1.5rem;">
+        ${player.name}
+      </h3>
+      <div class="player-info-grid">
+        <div class="player-info-item">
+          <span class="player-info-label">Score</span>
+          <span class="player-info-value">${player.score}/${player.totalQuestions}</span>
+        </div>
+        <div class="player-info-item">
+          <span class="player-info-label">Pourcentage</span>
+          <span class="player-info-value">${percentage}%</span>
+        </div>
+        <div class="player-info-item">
+          <span class="player-info-label">Temps</span>
+          <span class="player-info-value">${timeStr}</span>
+        </div>
+        <div class="player-info-item">
+          <span class="player-info-label">Date</span>
+          <span class="player-info-value" style="font-size: 1rem;">${dateStr}</span>
+        </div>
+      </div>
+    </div>
+
+    <h4 style="margin-bottom: 1.5rem; color: var(--gray-700); font-size: 1.125rem; font-weight: 700;">
+      📋 Détail des réponses
+    </h4>
+  `;
+
+  // Générer les cartes de questions
+  questions.forEach((question, qIndex) => {
+    const playerAnswer = player.answers![qIndex];
+
+    modalContent += `
+      <div class="modal-question-card">
+        <div class="modal-question-header">
+          <div class="modal-question-number">${qIndex + 1}</div>
+          <div class="modal-question-text">${question.question}</div>
+        </div>
+
+        <ul class="modal-answers-list">
+          ${question.answers.map((answer, aIndex) => {
+            const isPlayerAnswer = aIndex === playerAnswer;
+            const isCorrectAnswer = aIndex === question.correctAnswer;
+            
+            let itemClass = 'modal-answer-item';
+            let badgeClass = 'modal-answer-badge neutral';
+            let badgeIcon = '';
+            let labelHtml = '';
+
+            if (isPlayerAnswer) {
+              itemClass += ' player-answer';
+              labelHtml = '<span class="player-answer-label">Votre réponse</span>';
+              
+              if (isCorrectAnswer) {
+                itemClass += ' correct';
+                badgeClass = 'modal-answer-badge correct';
+                badgeIcon = '✓';
+              } else {
+                itemClass += ' incorrect';
+                badgeClass = 'modal-answer-badge incorrect';
+                badgeIcon = '✗';
+              }
+            } else if (isCorrectAnswer) {
+              itemClass += ' correct';
+              badgeClass = 'modal-answer-badge correct';
+              badgeIcon = '✓';
+            } else {
+              badgeIcon = '—';
+            }
+
+            return `
+              <li class="${itemClass}">
+                <div class="${badgeClass}">${badgeIcon}</div>
+                <div class="modal-answer-text">${answer}</div>
+                ${labelHtml}
+              </li>
+            `;
+          }).join('')}
+        </ul>
+
+        ${question.explanation ? `
+          <div class="modal-explanation">
+            <strong>💬 Explication :</strong> ${question.explanation}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  });
+
+  modalBody.innerHTML = modalContent;
+  modal.classList.add('active');
+};
+
+// Fermer la modal
+function closeModal(): void {
+  const modal = document.getElementById('player-details-modal') as HTMLDivElement;
+  modal.classList.remove('active');
+}
+
+// Event listeners pour la modal
+document.getElementById('close-modal')?.addEventListener('click', closeModal);
+document.getElementById('player-details-modal')?.addEventListener('click', (e) => {
+  if ((e.target as HTMLElement).id === 'player-details-modal') {
+    closeModal();
+  }
+});
 

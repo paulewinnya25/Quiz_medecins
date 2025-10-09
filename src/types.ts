@@ -12,6 +12,7 @@ export interface PlayerResult {
   totalQuestions: number;
   time: number;
   date: string;
+  answers?: number[];  // Les réponses du joueur (index des réponses)
 }
 
 export interface LeaderboardEntry extends PlayerResult {

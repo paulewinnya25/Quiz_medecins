@@ -197,7 +197,8 @@ async function endQuiz(): Promise<void> {
     score: score,
     totalQuestions: questions.length,
     time: totalTime,
-    date: new Date().toISOString()
+    date: new Date().toISOString(),
+    answers: playerAnswers  // Sauvegarder les réponses du joueur
   };
   
   // Sauvegarder dans Supabase
