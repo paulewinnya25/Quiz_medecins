@@ -272,17 +272,10 @@ async function endQuiz(): Promise<void> {
   messageDisplay.textContent = message;
 }
 
-// Recommencer le quiz
+// Terminer le quiz
 function restartQuiz(): void {
-  currentQuestion = 0;
-  score = 0;
-  playerAnswers = [];
-  playerName = '';
-  startTime = null;
-  
-  resultsSection.style.display = 'none';
-  qrSection.style.display = 'block';
-  playerNameInput.value = '';
+  // Rediriger vers la page d'accueil ou fermer l'onglet
+  window.location.href = '/';
 }
 
 // Event listeners

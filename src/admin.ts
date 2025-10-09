@@ -1,6 +1,6 @@
 import './style.css';
 import { questions } from './questions';
-import { getLeaderboard, cleanSupabaseDuplicates } from './supabase';
+import { getLeaderboard } from './supabase';
 import { LeaderboardEntry } from './types';
 
 // Mot de passe admin (à changer en production - devrait être dans variables d'environnement)
@@ -275,71 +275,7 @@ loginBtn.addEventListener('click', login);
 logoutBtn.addEventListener('click', logout);
 document.getElementById('refresh-btn')?.addEventListener('click', loadDashboardDataWithModal);
 
-// Fonction de debug
-function debugData(): void {
-  console.log('🔍 === DEBUG DONNÉES ===');
-  
-  // Vérifier localStorage
-  const localData = localStorage.getItem('quizLeaderboard');
-  console.log('📦 localStorage:', localData);
-  
-  // Vérifier les données Supabase
-  getLeaderboard().then(data => {
-    console.log('🗄️ Supabase données:', data);
-    console.log('🗄️ Participants trouvés:', data.map(p => p.name));
-    
-    // Chercher Vanessa spécifiquement
-    const vanessa = data.find(p => p.name.toLowerCase().includes('vanessa'));
-    if (vanessa) {
-      console.log('✅ Vanessa trouvée:', vanessa);
-    } else {
-      console.log('❌ Vanessa non trouvée dans Supabase');
-    }
-  });
-  
-  // Vérifier les données actuelles affichées
-  console.log('📊 Données actuelles affichées:', currentLeaderboardData);
-  const vanessaCurrent = currentLeaderboardData.find(p => p.name.toLowerCase().includes('vanessa'));
-  if (vanessaCurrent) {
-    console.log('✅ Vanessa dans données actuelles:', vanessaCurrent);
-  } else {
-    console.log('❌ Vanessa non trouvée dans données actuelles');
-  }
-  
-  alert('Debug terminé - Vérifiez la console (F12)');
-}
 
-// Fonction pour nettoyer les doublons
-async function cleanDuplicates(): Promise<void> {
-  console.log('🧹 === NETTOYAGE DES DOUBLONS ===');
-  
-  // Nettoyer Supabase d'abord
-  await cleanSupabaseDuplicates();
-  
-  // Nettoyer localStorage
-  const localData = localStorage.getItem('quizLeaderboard');
-  if (localData) {
-    try {
-      const localLeaderboard = JSON.parse(localData);
-      console.log('📦 localStorage avant nettoyage:', localLeaderboard.length, 'participants');
-      
-      // Supprimer les doublons basés sur nom + date
-      const uniqueParticipants = localLeaderboard.filter((participant: any, index: number, arr: any[]) => {
-        return arr.findIndex(p => p.name === participant.name && p.date === participant.date) === index;
-      });
-      
-      localStorage.setItem('quizLeaderboard', JSON.stringify(uniqueParticipants));
-      console.log('📦 localStorage après nettoyage:', uniqueParticipants.length, 'participants');
-    } catch (e) {
-      console.error('❌ Erreur nettoyage localStorage:', e);
-    }
-  }
-  
-  // Recharger les données depuis Supabase
-  await loadDashboardDataWithModal();
-  
-  alert('Nettoyage terminé - Les doublons ont été supprimés');
-}
 
 // Fonction pour supprimer un participant
 async function deletePlayer(index: number): Promise<void> {
@@ -440,8 +376,6 @@ function updateStatistics(data: LeaderboardEntry[]): void {
 // Exposer la fonction globalement pour les onclick
 (window as any).deletePlayer = deletePlayer;
 
-document.getElementById('debug-btn')?.addEventListener('click', debugData);
-document.getElementById('clean-duplicates-btn')?.addEventListener('click', cleanDuplicates);
 
 passwordInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
