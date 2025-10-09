@@ -92,6 +92,7 @@ async function loadDashboardData(): Promise<void> {
     console.log('🔄 Tentative de chargement depuis Supabase...');
     const leaderboardData = await getLeaderboard();
     console.log('🔄 Données Supabase:', leaderboardData.length, 'participants');
+    console.log('🔄 Participants Supabase:', leaderboardData.map(p => ({ name: p.name, score: p.score, date: p.date })));
     
     // Prendre la source avec le plus de données
     if (leaderboardData.length > data.length) {
@@ -263,6 +264,42 @@ authForm.addEventListener('submit', (e) => {
 loginBtn.addEventListener('click', login);
 logoutBtn.addEventListener('click', logout);
 document.getElementById('refresh-btn')?.addEventListener('click', loadDashboardDataWithModal);
+
+// Fonction de debug
+function debugData(): void {
+  console.log('🔍 === DEBUG DONNÉES ===');
+  
+  // Vérifier localStorage
+  const localData = localStorage.getItem('quizLeaderboard');
+  console.log('📦 localStorage:', localData);
+  
+  // Vérifier les données Supabase
+  getLeaderboard().then(data => {
+    console.log('🗄️ Supabase données:', data);
+    console.log('🗄️ Participants trouvés:', data.map(p => p.name));
+    
+    // Chercher Vanessa spécifiquement
+    const vanessa = data.find(p => p.name.toLowerCase().includes('vanessa'));
+    if (vanessa) {
+      console.log('✅ Vanessa trouvée:', vanessa);
+    } else {
+      console.log('❌ Vanessa non trouvée dans Supabase');
+    }
+  });
+  
+  // Vérifier les données actuelles affichées
+  console.log('📊 Données actuelles affichées:', currentLeaderboardData);
+  const vanessaCurrent = currentLeaderboardData.find(p => p.name.toLowerCase().includes('vanessa'));
+  if (vanessaCurrent) {
+    console.log('✅ Vanessa dans données actuelles:', vanessaCurrent);
+  } else {
+    console.log('❌ Vanessa non trouvée dans données actuelles');
+  }
+  
+  alert('Debug terminé - Vérifiez la console (F12)');
+}
+
+document.getElementById('debug-btn')?.addEventListener('click', debugData);
 
 passwordInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
