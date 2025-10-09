@@ -172,12 +172,22 @@ function displayLeaderboard(data: LeaderboardEntry[]): void {
     });
     
     return `
-      <tr data-player-index="${index}" onclick="showPlayerDetails(${index})">
+      <tr data-player-index="${index}">
         <td><span class="${rankBadgeClass}">${index + 1}</span></td>
         <td><strong>${player.name}</strong></td>
         <td>${player.score}/${player.totalQuestions} (${Math.round((player.score / player.totalQuestions) * 100)}%)</td>
         <td>${timeStr}</td>
         <td>${dateStr}</td>
+        <td>
+          <div class="action-buttons">
+            <button class="btn-action btn-view" onclick="showPlayerDetails(${index})" title="Voir les détails">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn-action btn-delete" onclick="deletePlayer(${index})" title="Supprimer">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </td>
       </tr>
     `;
   }).join('');
@@ -330,6 +340,105 @@ async function cleanDuplicates(): Promise<void> {
   
   alert('Nettoyage terminé - Les doublons ont été supprimés');
 }
+
+// Fonction pour supprimer un participant
+async function deletePlayer(index: number): Promise<void> {
+  if (!currentLeaderboardData || index < 0 || index >= currentLeaderboardData.length) {
+    console.error('❌ Index invalide pour la suppression');
+    return;
+  }
+
+  const player = currentLeaderboardData[index];
+  const confirmMessage = `Êtes-vous sûr de vouloir supprimer "${player.name}" du classement ?\n\nCette action est irréversible.`;
+  
+  if (!confirm(confirmMessage)) {
+    return;
+  }
+
+  try {
+    console.log('🗑️ Suppression du participant:', player.name);
+    
+    // Supprimer de Supabase si l'ID existe
+    if (player.id) {
+      const { supabase } = await import('./supabase');
+      if (supabase) {
+        const { error } = await supabase
+          .from('leaderboard')
+          .delete()
+          .eq('id', player.id);
+        
+        if (error) {
+          console.error('❌ Erreur Supabase:', error);
+          alert('Erreur lors de la suppression dans la base de données');
+          return;
+        }
+        console.log('✅ Participant supprimé de Supabase');
+      }
+    }
+    
+    // Supprimer de localStorage
+    const localData = localStorage.getItem('quizLeaderboard');
+    if (localData) {
+      try {
+        const localLeaderboard = JSON.parse(localData);
+        const filteredLeaderboard = localLeaderboard.filter((p: any) => 
+          !(p.name === player.name && p.date === player.date)
+        );
+        localStorage.setItem('quizLeaderboard', JSON.stringify(filteredLeaderboard));
+        console.log('✅ Participant supprimé de localStorage');
+      } catch (e) {
+        console.error('❌ Erreur localStorage:', e);
+      }
+    }
+    
+    // Supprimer des données actuelles
+    currentLeaderboardData.splice(index, 1);
+    
+    // Réafficher le classement
+    displayLeaderboard(currentLeaderboardData);
+    
+    // Mettre à jour les statistiques
+    updateStatistics(currentLeaderboardData);
+    
+    alert(`✅ "${player.name}" a été supprimé du classement`);
+    
+  } catch (error) {
+    console.error('❌ Erreur lors de la suppression:', error);
+    alert('Erreur lors de la suppression du participant');
+  }
+}
+
+// Fonction pour mettre à jour les statistiques
+function updateStatistics(data: LeaderboardEntry[]): void {
+  if (data.length > 0) {
+    // Total participants
+    totalParticipants.textContent = data.length.toString();
+    
+    // Score moyen
+    const avgScoreValue = data.reduce((sum, p) => sum + p.score, 0) / data.length;
+    const avgScorePercent = (avgScoreValue / 10) * 100;
+    avgScore.textContent = Math.round(avgScorePercent) + '%';
+    
+    // Temps moyen
+    const avgTimeValue = Math.floor(data.reduce((sum, p) => sum + p.time, 0) / data.length);
+    const minutes = Math.floor(avgTimeValue / 60);
+    const seconds = avgTimeValue % 60;
+    avgTime.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    
+    // Meilleur score
+    const best = data[0]; // Déjà trié
+    bestScore.textContent = `${best.score}/10`;
+  } else {
+    // Pas de données - afficher valeurs par défaut
+    totalParticipants.textContent = '0';
+    avgScore.textContent = '0%';
+    avgTime.textContent = '0:00';
+    bestScore.textContent = '0/10';
+  }
+}
+
+// Exposer la fonction globalement pour les onclick
+(window as any).deletePlayer = deletePlayer;
 
 document.getElementById('debug-btn')?.addEventListener('click', debugData);
 document.getElementById('clean-duplicates-btn')?.addEventListener('click', cleanDuplicates);

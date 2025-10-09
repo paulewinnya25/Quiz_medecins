@@ -1514,9 +1514,57 @@
       color: var(--primary-blue);
     }
 
+    /* Styles pour les boutons d'action */
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .btn-action {
+      padding: 0.5rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      height: 2rem;
+    }
+    
+    .btn-view {
+      background: linear-gradient(135deg, var(--accent-blue), var(--primary-blue));
+      color: white;
+    }
+    
+    .btn-view:hover {
+      background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 163, 224, 0.3);
+    }
+    
+    .btn-delete {
+      background: linear-gradient(135deg, #ff4757, #ff3742);
+      color: white;
+    }
+    
+    .btn-delete:hover {
+      background: linear-gradient(135deg, #ff3742, #ff2f3a);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+    }
+    
+    .btn-action i {
+      font-size: 0.75rem;
+    }
+    
     /* Rendre les lignes du tableau cliquables */
     .leaderboard-table tbody tr {
-      cursor: pointer;
+      cursor: default;
     }
 
     .leaderboard-table tbody tr:hover {
@@ -1704,11 +1752,12 @@
                       <th>Score</th>
                       <th>Temps</th>
                       <th>Date</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="leaderboard-body">
                     <tr>
-                      <td colspan="5" class="loading">
+                      <td colspan="6" class="loading">
                         <div class="spinner"></div>
                         Chargement du classement...
                       </td>
