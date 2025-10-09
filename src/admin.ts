@@ -75,9 +75,11 @@ async function loadDashboardData(): Promise<void> {
     
     if (localData) {
       console.log('📦 Données trouvées dans localStorage:', localData.length, 'caractères');
+      console.log('📦 Contenu localStorage:', localData);
       try {
         data = JSON.parse(localData);
         console.log('📦 Données localStorage parsées:', data.length, 'participants');
+        console.log('📦 Participants:', data.map(p => p.name));
       } catch (e) {
         console.error('❌ Erreur parsing localStorage:', e);
         data = [];

@@ -202,11 +202,13 @@ async function endQuiz(): Promise<void> {
   };
   
   // Sauvegarder dans Supabase
+  console.log('🔄 Sauvegarde du score de', playerName, ':', playerResultData);
   await saveScore(playerResultData);
   
   // Récupérer le leaderboard depuis Supabase ou localStorage
   try {
     leaderboard = await getLeaderboard();
+    console.log('📊 Leaderboard récupéré:', leaderboard.length, 'participants');
   } catch (error) {
     console.error('Erreur lors de la récupération du leaderboard:', error);
     leaderboard = [];
@@ -214,19 +216,25 @@ async function endQuiz(): Promise<void> {
   
   // Toujours sauvegarder dans localStorage comme backup
   const localLeaderboard = JSON.parse(localStorage.getItem('quizLeaderboard') || '[]');
+  console.log('📦 localStorage avant ajout:', localLeaderboard.length, 'participants');
+  
   localLeaderboard.push(playerResultData);
   localLeaderboard.sort((a: PlayerResult, b: PlayerResult) => {
     if (b.score !== a.score) return b.score - a.score;
     return a.time - b.time;
   });
   
+  console.log('📦 localStorage après ajout:', localLeaderboard.length, 'participants');
+  
   // Si pas de données Supabase, utiliser localStorage
   if (leaderboard.length === 0) {
     leaderboard = localLeaderboard.slice(0, 10);
+    console.log('📦 Utilisation du localStorage pour le leaderboard');
   }
   
   // Toujours sauvegarder dans localStorage
   localStorage.setItem('quizLeaderboard', JSON.stringify(localLeaderboard.slice(0, 10)));
+  console.log('✅ localStorage mis à jour');
   
   // Afficher les résultats
   quizSection.style.display = 'none';
