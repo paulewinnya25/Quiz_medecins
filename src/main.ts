@@ -205,6 +205,12 @@ async function endQuiz(): Promise<void> {
   console.log('🔄 Sauvegarde du score de', playerName, ':', playerResultData);
   await saveScore(playerResultData);
   
+  // Fallback : Toujours sauvegarder dans localStorage aussi
+  let localLeaderboard = JSON.parse(localStorage.getItem('quizLeaderboard') || '[]');
+  localLeaderboard.push(playerResultData);
+  localStorage.setItem('quizLeaderboard', JSON.stringify(localLeaderboard));
+  console.log('📦 Sauvegarde de secours dans localStorage effectuée');
+  
   // Récupérer le leaderboard depuis Supabase ou localStorage
   try {
     leaderboard = await getLeaderboard();
@@ -214,17 +220,13 @@ async function endQuiz(): Promise<void> {
     leaderboard = [];
   }
   
-  // Toujours sauvegarder dans localStorage comme backup
-  const localLeaderboard = JSON.parse(localStorage.getItem('quizLeaderboard') || '[]');
-  console.log('📦 localStorage avant ajout:', localLeaderboard.length, 'participants');
+  // Réutiliser les données localStorage déjà chargées
+  console.log('📦 localStorage après sauvegarde:', localLeaderboard.length, 'participants');
   
-  localLeaderboard.push(playerResultData);
   localLeaderboard.sort((a: PlayerResult, b: PlayerResult) => {
     if (b.score !== a.score) return b.score - a.score;
     return a.time - b.time;
   });
-  
-  console.log('📦 localStorage après ajout:', localLeaderboard.length, 'participants');
   
   // Si pas de données Supabase, utiliser localStorage
   if (leaderboard.length === 0) {

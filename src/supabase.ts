@@ -27,25 +27,42 @@ export async function saveScore(entry: LeaderboardEntry): Promise<void> {
     return;
   }
 
+  console.log('🔄 Tentative de sauvegarde Supabase pour:', entry.name);
+  console.log('🔄 Données à sauvegarder:', {
+    name: entry.name,
+    score: entry.score,
+    total_questions: entry.totalQuestions,
+    time: entry.time,
+    date: entry.date,
+    answers: entry.answers
+  });
+
   try {
-    const { error } = await supabase
+    const dataToInsert = {
+      name: entry.name,
+      score: entry.score,
+      total_questions: entry.totalQuestions,
+      time: entry.time,
+      date: entry.date,
+      answers: entry.answers ? JSON.stringify(entry.answers) : null
+    };
+
+    console.log('🔄 Données formatées pour Supabase:', dataToInsert);
+
+    const { data, error } = await supabase
       .from('leaderboard')
-      .insert([{
-        name: entry.name,
-        score: entry.score,
-        total_questions: entry.totalQuestions,
-        time: entry.time,
-        date: entry.date,
-        answers: entry.answers ? JSON.stringify(entry.answers) : null
-      }]);
+      .insert([dataToInsert])
+      .select();
 
     if (error) {
-      console.error('Erreur lors de la sauvegarde du score:', error);
+      console.error('❌ Erreur lors de la sauvegarde du score:', error);
+      console.error('❌ Détails de l\'erreur:', error.message, error.details, error.hint);
     } else {
-      console.log('✅ Score sauvegardé dans Supabase');
+      console.log('✅ Score sauvegardé dans Supabase avec succès');
+      console.log('✅ Données retournées:', data);
     }
   } catch (error) {
-    console.error('Erreur Supabase:', error);
+    console.error('❌ Erreur Supabase (catch):', error);
   }
 }
 
